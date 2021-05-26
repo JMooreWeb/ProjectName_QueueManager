@@ -3,10 +3,11 @@
   "description": "Robotic Enterprise Framework Dispatcher aka Queue Manager",
   "main": "Main.xaml",
   "dependencies": {
+    "Microsoft.Activities.Extensions": "[2.0.6.9]",
     "UiPath.Excel.Activities": "[2.9.5]",
     "UiPath.System.Activities": "[20.10.3]",
     "UiPath.UIAutomation.Activities": "[20.10.9]",
-    "UiPath.WebAPI.Activities": "[1.6.0]"
+    "UiPath.WebAPI.Activities": "1.7.0"
   },
   "webServices": [],
   "entitiesStores": [],
@@ -24,7 +25,7 @@
     ],
     "executionType": "Workflow",
     "readyForPiP": false,
-    "startsInPiP": false
+    "startsInPiP": true
   },
   "designOptions": {
     "projectProfile": "Developement",
@@ -50,5 +51,6 @@
   ],
   "isTemplate": false,
   "templateProjectData": {},
-  "publishData": {}
+  "publishData": {},
+  "targetFramework": "Legacy"
 }

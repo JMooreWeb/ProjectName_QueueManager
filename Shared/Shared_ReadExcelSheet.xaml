@@ -1,16 +1,20 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Shared_ReadExcelSheet" this:Shared_ReadExcelSheet.in_FilePath="Data\Input\Sample.xlsx" this:Shared_ReadExcelSheet.in_SheetName="Sheet1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Shared_ReadExcelSheet" this:Shared_ReadExcelSheet.in_SheetName="Sheet1" this:Shared_ReadExcelSheet.in_AvgDataRowCount="500" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_FilePath" Type="InArgument(x:String)" />
+    <x:Property Name="in_ExcelFilePath" Type="InArgument(x:String)" />
+    <x:Property Name="out_DataTable" Type="OutArgument(sd:DataTable)" />
     <x:Property Name="in_SheetName" Type="InArgument(x:String)" />
-    <x:Property Name="in_Range" Type="InArgument(x:String)" />
+    <x:Property Name="in_ReadRange" Type="InArgument(x:String)" />
+    <x:Property Name="in_AvgDataRowCount" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_RequiredColumns" Type="InArgument(s:String[])" />
+    <x:Property Name="in_OptionalColumns" Type="InArgument(s:String[])" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>682,820</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>982,2780</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ReadExcelSheet_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="52">
+    <scg:List x:TypeArguments="x:String" Capacity="31">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -39,10 +43,13 @@
       <x:String>UiPath.Excel.Activities</x:String>
       <x:String>System.Collections.ObjectModel</x:String>
       <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="20">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="52">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -63,36 +70,173 @@
       <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Shared_ReadExcelSheet" sap:VirtualizedContainerService.HintSize="476,441" sap2010:WorkflowViewState.IdRef="Sequence_1">
-    <Sequence.Variables>
-      <Variable x:TypeArguments="sd:DataTable" Name="excelDataTable" />
-      <Variable x:TypeArguments="x:String" Name="txtExcelDataTable" />
-    </Sequence.Variables>
+  <Sequence DisplayName="Shared_ReadExcelSheet" sap:VirtualizedContainerService.HintSize="769,2675" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="434,349" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Shared_WorkflowLog workflow" sap:VirtualizedContainerService.HintSize="727,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Shared\Shared_WorkflowLog.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_WorkflowVersion">1.0.0</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_WorkflowReleaseDate">2021-02-20</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_WorkflowName">Read Excel Sheet</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:AddLogFields DisplayName="Add Log Fields" sap:VirtualizedContainerService.HintSize="727,22" sap2010:WorkflowViewState.IdRef="AddLogFields_1">
+      <ui:AddLogFields.Fields>
+        <InArgument x:TypeArguments="x:String" x:Key="ExcelFilePath">[in_ExcelFilePath]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="ExcelSheetName">[in_SheetName]</InArgument>
+      </ui:AddLogFields.Fields>
+    </ui:AddLogFields>
+    <Assign sap:VirtualizedContainerService.HintSize="727,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="sd:DataTable">[out_DataTable]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="sd:DataTable">[New DataTable]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <TryCatch sap2010:Annotation.AnnotationText="Reads an Excel file from a given range" DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="727,2268" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
       <TryCatch.Try>
-        <Sequence sap:VirtualizedContainerService.HintSize="376,374" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence DisplayName="Try Reading Excel Sheet" sap:VirtualizedContainerService.HintSize="689,2005" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:Boolean" Name="isReadRangeValid" />
+            <Variable x:TypeArguments="x:String" Default="[A-z]{1,2}\d+:[A-z]{1,2}\d*" Name="readRangePattern" />
+            <Variable x:TypeArguments="x:Boolean" Name="autoRow" />
+            <Variable x:TypeArguments="x:Boolean" Name="autoRowTest" />
+            <Variable x:TypeArguments="x:Int32" Default="1" Name="stepCount" />
+            <Variable x:TypeArguments="x:Boolean" Name="readNextRange" />
+            <Variable x:TypeArguments="x:String" Name="readRange" />
+            <Variable x:TypeArguments="sd:DataTable" Name="excelDataTable" />
+            <Variable x:TypeArguments="x:String" Name="txtExcelDataTable" />
+          </Sequence.Variables>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:ReadRange Range="{x:Null}" AddHeaders="True" DataTable="[excelDataTable]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="[in_SheetName]" WorkbookPath="[in_FilePath]" />
-          <ui:OutputDataTable DataTable="[excelDataTable]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_1" Text="[txtExcelDataTable]" />
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[txtExcelDataTable]" />
+          <ui:IsMatch BuilderPattern="abc" DisplayName="Is Match" sap:VirtualizedContainerService.HintSize="647,59" sap2010:WorkflowViewState.IdRef="IsMatch_1" Input="[in_ReadRange]" IsBuilderTabModified="True" Model="[{&quot;Index&quot;:0,&quot;OperationID&quot;:&quot;LIT&quot;,&quot;OperationName&quot;:&quot;Literal&quot;,&quot;OperationValue&quot;:&quot;abc&quot;,&quot;QuantifierFirstValue&quot;:&quot;1&quot;,&quot;QuantifierID&quot;:&quot;EXT&quot;,&quot;QuantifierName&quot;:&quot;Exactly&quot;,&quot;QuantifierSecondValue&quot;:null}]" Pattern="[readRangePattern]" RegexOption="IgnoreCase, Compiled" Result="[isReadRangeValid]" />
+          <If Condition="[Not isReadRangeValid]" DisplayName="Check if Read Range is not valid" sap:VirtualizedContainerService.HintSize="647,210" sap2010:WorkflowViewState.IdRef="If_1">
+            <If.Then>
+              <Throw Exception="[New ApplicationException(&quot;Read range pattern is invalid, not matching regular expression pattern: &quot; + readRangePattern)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+            </If.Then>
+          </If>
+          <Assign DisplayName="Assign: autoRowTest" sap:VirtualizedContainerService.HintSize="647,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Boolean">[autoRowTest]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Boolean">[Char.IsNumber(in_ReadRange.ToCharArray()(in_ReadRange.Length-1))]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <If Condition="[Char.IsNumber(in_ReadRange.ToCharArray()(in_ReadRange.Length-1))]" DisplayName="Check if rows range was given in the range" sap:VirtualizedContainerService.HintSize="647,210" sap2010:WorkflowViewState.IdRef="If_2">
+            <If.Then>
+              <Assign DisplayName="Assign: autoRow" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Boolean">[autoRow]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                </Assign.Value>
+              </Assign>
+            </If.Then>
+            <If.Else>
+              <Assign DisplayName="Assign: autoRow" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Boolean">[autoRow]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                </Assign.Value>
+              </Assign>
+            </If.Else>
+          </If>
+          <ui:InterruptibleDoWhile DisplayName="Do While: Until last row has no data" sap:VirtualizedContainerService.HintSize="647,928" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+            <ui:InterruptibleDoWhile.Body>
+              <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="611,761" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If Condition="[autoRow]" sap:VirtualizedContainerService.HintSize="569,209" sap2010:WorkflowViewState.IdRef="If_3">
+                  <If.Then>
+                    <Assign DisplayName="Assign: readRange" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[readRange]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[in_ReadRange + (in_AvgDataRowCount * stepCount).ToString]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </If.Then>
+                  <If.Else>
+                    <Assign DisplayName="Assign: readRange" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[readRange]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[in_ReadRange]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </If.Else>
+                </If>
+                <ui:ReadRange AddHeaders="True" DataTable="[out_DataTable]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="569,87" sap2010:WorkflowViewState.IdRef="ReadRange_1" Range="[readRange]" SheetName="[in_SheetName]" WorkbookPath="[in_ExcelFilePath]" />
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="569,93" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;DataTable row count: &quot; + out_DataTable.Rows.Count.ToString]" />
+                <Assign DisplayName="Assign: readNextRange" sap:VirtualizedContainerService.HintSize="569,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Boolean">[readNextRange]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Boolean">[autoRow AndAlso out_DataTable.Rows.Count &gt; 0 AndAlso Not String.IsNullOrWhiteSpace(String.Join("", out_DataTable.Rows(out_DataTable.Rows.Count-1).ItemArray))]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign DisplayName="Assign: stepCount" sap:VirtualizedContainerService.HintSize="569,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int32">[stepCount]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int32">[stepCount + 1]</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </Sequence>
+            </ui:InterruptibleDoWhile.Body>
+            <ui:InterruptibleDoWhile.Condition>
+              <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="readNextRange" sap2010:WorkflowViewState.IdRef="VisualBasicValue`1_1" />
+            </ui:InterruptibleDoWhile.Condition>
+          </ui:InterruptibleDoWhile>
+          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Shared_ExcelTemplateHeadersValidation workflow" sap:VirtualizedContainerService.HintSize="647,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Shared\Shared_ExcelTemplateHeadersValidation.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_DataTable">[out_DataTable]</InOutArgument>
+              <InArgument x:TypeArguments="s:String[]" x:Key="in_RequiredColumns">[in_RequiredColumns]</InArgument>
+              <InArgument x:TypeArguments="s:String[]" x:Key="in_OptionalColumns">[in_OptionalColumns]</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="in_RemoveDuplicates">True</InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="647,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Excel Data Rows Count: &quot; + out_DataTable.Rows.Count.ToString]" />
         </Sequence>
       </TryCatch.Try>
       <TryCatch.Catches>
-        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,183" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="693,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
               <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
@@ -102,18 +246,10 @@
             </ActivityAction.Argument>
             <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Shared_ExceptionHandler workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Shared\Shared_ExceptionHandler.xaml">
               <ui:InvokeWorkflowFile.Arguments>
-                <InArgument x:TypeArguments="x:String" x:Key="in_ErrorMessage">
-                  <Literal x:TypeArguments="x:String">Application Exception: Failed to read Excel file</Literal>
-                </InArgument>
-                <InArgument x:TypeArguments="s:Exception" x:Key="in_Exception">
-                  <mva:VisualBasicValue x:TypeArguments="s:Exception" ExpressionText="exception" />
-                </InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_LogLevel">
-                  <Literal x:TypeArguments="x:String">Error</Literal>
-                </InArgument>
-                <InArgument x:TypeArguments="x:Boolean" x:Key="in_IsRethrow">
-                  <Literal x:TypeArguments="x:Boolean" />
-                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ErrorMessage">Application Exception: Failed to read Excel file</InArgument>
+                <InArgument x:TypeArguments="s:Exception" x:Key="in_Exception">[exception]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_LogLevel">Error</InArgument>
+                <InArgument x:TypeArguments="x:Boolean" x:Key="in_IsRethrow">False</InArgument>
                 <InArgument x:TypeArguments="x:String" x:Key="in_ScreenshotFolderPath" />
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>

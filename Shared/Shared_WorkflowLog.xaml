@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Shared_WorkflowLog" this:Shared_WorkflowLog.in_WorkflowVersion="1.0.0" this:Shared_WorkflowLog.in_WorkflowReleaseDate="2021-02-19" this:Shared_WorkflowLog.in_WorkflowName="No Name Entered" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Shared_WorkflowLog" this:Shared_WorkflowLog.in_WorkflowVersion="1.0.0" this:Shared_WorkflowLog.in_WorkflowReleaseDate="[DateTime.Today.ToString(&quot;yyyy-MM-dd&quot;)]" this:Shared_WorkflowLog.in_WorkflowName="Enter workflow name" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_WorkflowVersion" Type="InArgument(x:String)" />
     <x:Property Name="in_WorkflowReleaseDate" Type="InArgument(x:String)" />
@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>610,827</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>613,827</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Shared_WorkflowLog_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -81,12 +81,8 @@
       </sap:WorkflowViewStateService.ViewState>
       <ui:AddLogFields DisplayName="Add Log Fields" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddLogFields_1">
         <ui:AddLogFields.Fields>
-          <InArgument x:TypeArguments="x:String" x:Key="WorkflowVersion">
-            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_WorkflowVersion" />
-          </InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="WorkflowReleaseDate">
-            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_WorkflowReleaseDate" />
-          </InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="WorkflowVersion">[in_WorkflowVersion]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="WorkflowReleaseDate">[in_WorkflowReleaseDate]</InArgument>
         </ui:AddLogFields.Fields>
       </ui:AddLogFields>
       <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Starting shared workflow: &quot; + in_WorkflowName]" />
