@@ -1,6 +1,6 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Test_ReadExcelSheet" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="577,871" sap2010:WorkflowViewState.IdRef="Test_ReadExcelSheet_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Test_ReadExcelSheet" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="468,871" sap2010:WorkflowViewState.IdRef="Test_ReadExcelSheet_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="54">
+    <scg:List x:TypeArguments="x:String" Capacity="29">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -67,6 +67,7 @@
       <Variable x:TypeArguments="sd:DataTable" Name="excelDT" />
       <Variable x:TypeArguments="x:String" Name="excelTextDT" />
       <Variable x:TypeArguments="sd:DataTable" Name="dt_Results" />
+      <Variable x:TypeArguments="sd:DataTable" Name="result" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -83,38 +84,24 @@
           </sap:WorkflowViewStateService.ViewState>
           <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Item" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="Sample_Transactions">
             <ui:AddQueueItem.ItemInformation>
-              <InArgument x:TypeArguments="x:String" x:Key="Data">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="&quot;{&quot;&quot;accountNumber&quot;&quot;:&quot;&quot;12345678&quot;&quot;}&quot;" />
-              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="Data">["{""accountNumber"":""12345678""}"]</InArgument>
             </ui:AddQueueItem.ItemInformation>
           </ui:AddQueueItem>
         </Sequence>
       </ui:CommentOut.Body>
     </ui:CommentOut>
-    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Shared_ReadExcelSheet workflow" sap:VirtualizedContainerService.HintSize="436,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Shared\Shared_ReadExcelSheet.xaml">
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_ReadExcelSheet workflow" sap:VirtualizedContainerService.HintSize="436,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Shared\Shared_ReadExcelSheet.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="x:String" x:Key="in_ExcelFilePath">
-          <Literal x:TypeArguments="x:String">Data\Input\Sample.xlsx</Literal>
-        </InArgument>
-        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_DataTable">
-          <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="excelDT" />
-        </OutArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_SheetName">
-          <Literal x:TypeArguments="x:String">Sheet1</Literal>
-        </InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_ReadRange">
-          <Literal x:TypeArguments="x:String">A1:B</Literal>
-        </InArgument>
-        <InArgument x:TypeArguments="x:Int32" x:Key="in_AvgDataRowCount">
-          <Literal x:TypeArguments="x:Int32" Value="500" />
-        </InArgument>
-        <InArgument x:TypeArguments="s:String[]" x:Key="in_RequiredColumns">
-          <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="{}{&quot;Account&quot;,&quot;Description&quot;}" />
-        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ExcelFilePath">Data\Input\Sample.xlsx</InArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_DataTable">[excelDT]</OutArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_SheetName">Sheet1</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ReadRange">A1:B</InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="in_AvgDataRowCount">500</InArgument>
+        <InArgument x:TypeArguments="s:String[]" x:Key="in_RequiredColumns">[{"Account","Description"}]</InArgument>
         <InArgument x:TypeArguments="s:String[]" x:Key="in_OptionalColumns" />
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <ui:BulkAddQueueItems TimeoutMS="{x:Null}" CommitType="ProcessAllIndependently" DisplayName="Bulk Add Queue Items" sap:VirtualizedContainerService.HintSize="436,134" sap2010:WorkflowViewState.IdRef="BulkAddQueueItems_1" QueueItemsDataTable="[excelDT]" QueueName="Sample_Transactions" />
+    <ui:BulkAddQueueItems TimeoutMS="{x:Null}" CommitType="ProcessAllIndependently" DisplayName="Bulk Add Queue Items" sap:VirtualizedContainerService.HintSize="436,134" sap2010:WorkflowViewState.IdRef="BulkAddQueueItems_1" QueueItemsDataTable="[excelDT]" QueueName="ProcessABCQueue" Result="[result]" />
     <ui:OutputDataTable DataTable="[dt_Results]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="436,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_1" Text="[excelTextDT]" />
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="436,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[excelTextDT]" />
   </Sequence>

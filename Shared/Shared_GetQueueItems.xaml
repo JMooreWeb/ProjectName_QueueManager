@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Shared_GetQueueItems" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Shared_GetQueueItems" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.microsoft.com/workflow/2012/07/xaml/activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_QueueName" Type="InArgument(x:String)" />
     <x:Property Name="out_QueueItems" Type="OutArgument(scg:List(ui:QueueItem))" />
@@ -6,10 +6,10 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>662,1313</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>631,1768</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Shared_GetQueueItems_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="26">
+    <scg:List x:TypeArguments="x:String" Capacity="28">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -36,10 +36,12 @@
       <x:String>System.Runtime.Serialization</x:String>
       <x:String>System.Reflection</x:String>
       <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>UiPath.Core.Activities.Orchestrator</x:String>
+      <x:String>Microsoft.Activities.Expressions</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="26">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="27">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -66,15 +68,29 @@
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>Microsoft.Activities</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Shared_GetQueueItems" sap:VirtualizedContainerService.HintSize="554,1208" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Shared_GetQueueItems" sap:VirtualizedContainerService.HintSize="522,1703" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Boolean" Name="isRequestSuccess">
+        <Variable.Default>
+          <Literal x:TypeArguments="x:Boolean" />
+        </Variable.Default>
+      </Variable>
+      <Variable x:TypeArguments="scg:IEnumerable(ui:QueueItem)" Default="[New List(Of QueueItem)]" Name="subSetQueueItems" />
+      <Variable x:TypeArguments="x:Int32" Name="skipItemsCount">
+        <Variable.Default>
+          <Literal x:TypeArguments="x:Int32" />
+        </Variable.Default>
+      </Variable>
+    </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign DisplayName="Assign: out_QueueItems" sap:VirtualizedContainerService.HintSize="512,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign DisplayName="Assign: out_QueueItems" sap:VirtualizedContainerService.HintSize="480,60" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="scg:List(ui:QueueItem)">[out_QueueItems]</OutArgument>
       </Assign.To>
@@ -82,30 +98,48 @@
         <InArgument x:TypeArguments="scg:List(ui:QueueItem)">[New List(Of QueueItem)]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:InterruptibleDoWhile DisplayName="Do While" sap:VirtualizedContainerService.HintSize="512,883" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
-      <ui:InterruptibleDoWhile.Body>
-        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476,716" sap2010:WorkflowViewState.IdRef="Sequence_2">
-          <Sequence.Variables>
-            <Variable x:TypeArguments="x:Int32" Name="skipItemCount" />
-            <Variable x:TypeArguments="sc:IEnumerable" Name="subSetQueueItem" />
-          </Sequence.Variables>
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-          <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="434,349" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <ui:RetryScope DisplayName="Retry Scope: Get Queue Items" sap:VirtualizedContainerService.HintSize="480,844" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="3" RetryInterval="00:00:05">
+      <ui:RetryScope.ActivityBody>
+        <ActivityAction>
+          <TryCatch DisplayName="Try Catch: Get Queue Items" sap:VirtualizedContainerService.HintSize="438,604" sap2010:WorkflowViewState.IdRef="TryCatch_1">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <TryCatch.Catches>
-              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,183" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+            <TryCatch.Try>
+              <Sequence DisplayName="Try Block: Get Queue Items" sap:VirtualizedContainerService.HintSize="326,372" sap2010:WorkflowViewState.IdRef="Sequence_3">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Assign DisplayName="Assign: isRequestSuccess" sap:VirtualizedContainerService.HintSize="284,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Boolean">[isRequestSuccess]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <ui:GetQueueItems Duration="{x:Null}" From="{x:Null}" Priority="{x:Null}" Reference="{x:Null}" Skip="{x:Null}" TimeoutMS="{x:Null}" To="{x:Null}" Top="{x:Null}" DisplayName="Get Queue Items" FilterStrategy="StartsWith" sap:VirtualizedContainerService.HintSize="284,80" sap2010:WorkflowViewState.IdRef="GetQueueItems_1" QueueItemStates="New" QueueName="[in_QueueName]" />
+                <Assign DisplayName="Assign: isRequestSuccess" sap:VirtualizedContainerService.HintSize="284,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Boolean">[isRequestSuccess]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </Sequence>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                     <x:Boolean x:Key="IsPinned">False</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
@@ -113,20 +147,12 @@
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                   </ActivityAction.Argument>
-                  <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Shared_ExceptionHandler workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Shared\Shared_ExceptionHandler.xaml">
+                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_ExceptionHandler workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Shared\Shared_ExceptionHandler.xaml">
                     <ui:InvokeWorkflowFile.Arguments>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_ErrorMessage">
-                        <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="&quot;Application Exception: Failed getting Queue Items from Orchestrator Queue: &quot; + in_QueueName" />
-                      </InArgument>
-                      <InArgument x:TypeArguments="s:Exception" x:Key="in_Exception">
-                        <mva:VisualBasicValue x:TypeArguments="s:Exception" ExpressionText="exception" />
-                      </InArgument>
-                      <InArgument x:TypeArguments="x:String" x:Key="in_LogLevel">
-                        <Literal x:TypeArguments="x:String">Error</Literal>
-                      </InArgument>
-                      <InArgument x:TypeArguments="x:Boolean" x:Key="in_IsRethrow">
-                        <Literal x:TypeArguments="x:Boolean" />
-                      </InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ErrorMessage">["Application Exception: Failed getting Queue Items from Orchestrator Queue: " + in_QueueName]</InArgument>
+                      <InArgument x:TypeArguments="s:Exception" x:Key="in_Exception">[exception]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_LogLevel">Error</InArgument>
+                      <InArgument x:TypeArguments="x:Boolean" x:Key="in_IsRethrow">False</InArgument>
                       <InArgument x:TypeArguments="x:String" x:Key="in_ScreenshotFolderPath" />
                     </ui:InvokeWorkflowFile.Arguments>
                   </ui:InvokeWorkflowFile>
@@ -134,24 +160,41 @@
               </Catch>
             </TryCatch.Catches>
           </TryCatch>
-          <InvokeMethod DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="434,135" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="AddRange">
+        </ActivityAction>
+      </ui:RetryScope.ActivityBody>
+      <ui:RetryScope.Condition>
+        <ActivityFunc x:TypeArguments="x:Boolean">
+          <p:IsTrue DisplayName="Is true: isRequestSuccess" sap:VirtualizedContainerService.HintSize="284,80" sap2010:WorkflowViewState.IdRef="IsTrue_1" Input="[isRequestSuccess]" />
+        </ActivityFunc>
+      </ui:RetryScope.Condition>
+    </ui:RetryScope>
+    <ui:InterruptibleDoWhile DisplayName="Do While: Get Queue Items" sap:VirtualizedContainerService.HintSize="480,494" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+      <ui:InterruptibleDoWhile.Body>
+        <Sequence DisplayName="Body: Get Queue Items" sap:VirtualizedContainerService.HintSize="304,327" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <InvokeMethod DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="262,135" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="AddRange">
             <InvokeMethod.TargetObject>
               <InArgument x:TypeArguments="scg:List(ui:QueueItem)">[out_QueueItems]</InArgument>
             </InvokeMethod.TargetObject>
-            <InArgument x:TypeArguments="scg:IEnumerable(ui:QueueItem)">
-              <mva:VisualBasicValue x:TypeArguments="scg:IEnumerable(ui:QueueItem)" ExpressionText="New List(Of QueueItem)" />
-            </InArgument>
+            <InArgument x:TypeArguments="scg:IEnumerable(ui:QueueItem)">[New List(Of QueueItem)]</InArgument>
           </InvokeMethod>
-          <Assign DisplayName="Assign: skipItemCount" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+          <Assign DisplayName="Assign: skipItemsCount" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
             <Assign.To>
-              <OutArgument x:TypeArguments="x:Int32">[skipItemCount]</OutArgument>
+              <OutArgument x:TypeArguments="x:Int32">[skipItemsCount]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="x:Int32">[skipItemCount + 1]</InArgument>
+              <InArgument x:TypeArguments="x:Int32">[skipItemsCount + 1]</InArgument>
             </Assign.Value>
           </Assign>
         </Sequence>
       </ui:InterruptibleDoWhile.Body>
+      <ui:InterruptibleDoWhile.Condition>
+        <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="subSetQueueItems.Count &gt;= 100" />
+      </ui:InterruptibleDoWhile.Condition>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -159,6 +202,6 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:InterruptibleDoWhile>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="512,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[String.Format(&quot;NEW Queue Items count from Prior Run of the Queue: {0} is {1}&quot;, in_QueueName, out_QueueItems.Count)]" />
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="480,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[String.Format(&quot;NEW Queue Items count from Prior Run of the Queue: {0} is {1}&quot;, in_QueueName, out_QueueItems.Count)]" />
   </Sequence>
 </Activity>

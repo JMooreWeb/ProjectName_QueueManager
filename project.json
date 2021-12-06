@@ -3,6 +3,7 @@
   "description": "Robotic Enterprise Framework Dispatcher aka Queue Manager",
   "main": "Main.xaml",
   "dependencies": {
+    "Microsoft.Activities": "[1.0.1]",
     "Microsoft.Activities.Extensions": "[2.0.6.9]",
     "UiPath.Excel.Activities": "[2.10.4]",
     "UiPath.System.Activities": "[21.4.1]",
