@@ -1,4 +1,3 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Activity mc:Ignorable="sap sap2010" x:Class="Shared_ExcelTemplateHeadersValidation" this:Shared_ExcelTemplateHeadersValidation.in_RemoveDuplicates="True" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="io_DataTable" Type="InOutArgument(sd:DataTable)" />
@@ -9,7 +8,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>947,1088</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1002,1088</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Shared_ExcelTemplateHeadersValidation_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="27">
@@ -72,15 +71,15 @@
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Shared_ExcelTemplateHeadersValidation" sap:VirtualizedContainerService.HintSize="606,983" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Shared_ExcelTemplateHeadersValidation" sap:VirtualizedContainerService.HintSize="606,1023" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="564,891" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="564,931" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Try>
-        <Sequence DisplayName="Try Validating Excel DataTable " sap:VirtualizedContainerService.HintSize="526,659" sap2010:WorkflowViewState.IdRef="Sequence_3">
+        <Sequence DisplayName="Try Validating Excel DataTable " sap:VirtualizedContainerService.HintSize="526,699" sap2010:WorkflowViewState.IdRef="Sequence_3">
           <Sequence.Variables>
             <Variable x:TypeArguments="s:Exception" Name="validationException" />
           </Sequence.Variables>
@@ -90,7 +89,7 @@
               <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Shared_WorkflowLog workflow" sap:VirtualizedContainerService.HintSize="484,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Shared\Shared_WorkflowVersionLog.xaml">
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_WorkflowLog workflow" sap:VirtualizedContainerService.HintSize="484,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Shared\Shared_WorkflowVersionLog.xaml">
             <ui:InvokeWorkflowFile.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="in_WorkflowVersion">1.0.0</InArgument>
               <InArgument x:TypeArguments="x:String" x:Key="in_WorkflowReleaseDate">2021-02-20</InArgument>
@@ -99,15 +98,25 @@
           </ui:InvokeWorkflowFile>
           <ui:InvokeCode ContinueOnError="{x:Null}" Code="Try&#xA;&#x9;If io_DataTable Is Nothing Then&#xA;&#x9;&#x9;Throw New RowNotInTableException(&quot;The given DataTable is nothing or have no data&quot;) With {.Source = &quot;DataTable is empty check&quot;}&#xA;&#x9;End If&#xA;&#x9;&#xA;&#x9;'Trim column names&#xA;&#x9;For Each item As DataColumn In io_DataTable.Columns&#xA;&#x9;&#x9;If (Not String.IsNullOrWhiteSpace(item.ColumnName)) Then&#xA;&#x9;&#x9;&#x9;item.ColumnName = item.ColumnName.Trim&#xA;&#x9;&#x9;End If&#xA;&#x9;Next&#xA;&#x9;&#xA;&#x9;'Remove duplicates&#xA;&#x9;If in_RemoveDuplicates Then&#xA;&#x9;&#x9;io_DataTable = io_DataTable.DefaultView.ToTable(True)&#xA;&#x9;End If&#xA;&#x9;&#xA;&#x9;'Remove empty rows&#xA;&#x9;Dim tempDT As DataTable = io_DataTable.Clone&#xA;&#x9;&#xA;&#x9;For Each row As DataRow In io_DataTable.Rows&#xA;&#x9;&#x9;Dim rowAsString As String = String.Join(String.Empty, row.ItemArray)&#xA;&#x9;&#x9;If Not String.IsNullOrWhiteSpace(rowAsString) Then&#xA;&#x9;&#x9;&#x9;tempDT.ImportRow(row)&#xA;&#x9;&#x9;End If&#xA;&#x9;Next&#xA;&#x9;&#xA;&#x9;io_DataTable = tempDT&#xA;&#x9;&#xA;&#x9;out_TemplateValidationSuccess = True&#xA;&#x9;&#xA;&#x9;'Validate required template headers for DataTable&#xA;&#x9;If in_RequiredColumns IsNot Nothing AndAlso in_RequiredColumns.Length &gt; 0 Then&#xA;&#x9;&#x9;in_RequiredColumns = in_RequiredColumns.Select(Function(x) x.Trim).ToArray&#xA;&#x9;&#x9;'in_RequiredColumns = in_RequiredColumns.Select(Function(x) x.Trim.ToLower).ToArray&#xA;&#x9;&#x9;For Each columnName As String In in_RequiredColumns&#xA;&#x9;&#x9;&#x9;If Not io_DataTable.Columns.Contains(columnName.Trim) Then&#xA;&#x9;&#x9;&#x9;&#x9;out_TemplateValidationSuccess = False&#xA;&#x9;&#x9;&#x9;&#x9;Throw New FormatException(&quot;Required Column: &quot; + columnName + &quot; does not exists in the DataTable&quot;) With {.Source = &quot;Required table headers validation&quot;}&#xA;&#x9;&#x9;&#x9;End If&#xA;&#x9;&#x9;Next&#xA;&#x9;End If&#xA;&#x9;&#xA;&#x9;'Remove empty columns&#xA;&#x9;Dim tempDTForColumnDelete As DataTable = io_DataTable.Copy&#xA;&#x9;&#xA;&#x9;'Validate DT headers with valid column name&#xA;&#x9;If in_OptionalColumns IsNot Nothing AndAlso in_OptionalColumns.Length &gt; 0 Then&#xA;&#x9;&#x9;in_OptionalColumns = in_OptionalColumns.Select(Function(x) x.Trim.ToLower).ToArray&#xA;&#x9;&#x9;If in_RequiredColumns IsNot Nothing Then&#xA;&#x9;&#x9;&#x9;in_OptionalColumns = in_OptionalColumns.Union(in_RequiredColumns).ToArray&#xA;&#x9;&#x9;End If&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;For Each item As DataColumn In io_DataTable.Columns&#xA;&#x9;&#x9;&#x9;If Not in_OptionalColumns.Contains(item.ColumnName.ToLower) Then 'String array is case sensitive&#xA;&#x9;&#x9;&#x9;&#x9;'Column names starting with Column are assumed as unnecessary and are deleted if they does not have any data for that column&#xA;&#x9;&#x9;&#x9;&#x9;'To avoid deleting expected Column, please provide that as Optional or required column names&#xA;&#x9;&#x9;&#x9;&#x9;If item.ColumnName.StartsWith(&quot;Column&quot;) AndAlso (io_DataTable.Rows.Count = 0 OrElse io_DataTable.AsEnumerable.Where(Function(x) (x.Field(Of String)(item.ColumnName).Trim &lt;&gt; String.Empty)).Count = 0) Then&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;tempDTForColumnDelete.Columns.Remove(item.ColumnName)&#xA;&#x9;&#x9;&#x9;&#x9;Else&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;'Invalid column found&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;out_TemplateValidationSuccess = False&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;Throw New FormatException(&quot;Invalid column: &quot; + item.ColumnName + &quot; exists in the DT. Valid columns are: &quot; + String.Join(&quot;,&quot;, in_OptionalColumns)) With {.Source = &quot;Optional table headers validation&quot;}&#xA;&#x9;&#x9;&#x9;&#x9;End If&#xA;&#x9;&#x9;&#x9;End If&#xA;&#x9;&#x9;Next&#xA;&#x9;End If&#xA;&#x9;&#xA;&#x9;io_DataTable = tempDTForColumnDelete&#xA;&#x9;&#xA;Catch ex As Exception&#xA;&#x9;out_Exception = ex&#xA;End Try" DisplayName="Invoke code" sap:VirtualizedContainerService.HintSize="484,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
             <ui:InvokeCode.Arguments>
-              <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_DataTable">[io_DataTable]</InOutArgument>
-              <InArgument x:TypeArguments="s:String[]" x:Key="in_RequiredColumns   ">[in_RequiredColumns]</InArgument>
-              <InArgument x:TypeArguments="s:String[]" x:Key="in_OptionalColumns ">[in_OptionalColumns]</InArgument>
-              <InArgument x:TypeArguments="x:Boolean" x:Key="in_RemoveDuplicates">[in_RemoveDuplicates]</InArgument>
+              <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_DataTable">
+                <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="io_DataTable" />
+              </InOutArgument>
+              <InArgument x:TypeArguments="s:String[]" x:Key="in_RequiredColumns   ">
+                <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="in_RequiredColumns" />
+              </InArgument>
+              <InArgument x:TypeArguments="s:String[]" x:Key="in_OptionalColumns ">
+                <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="in_OptionalColumns" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="in_RemoveDuplicates">
+                <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="in_RemoveDuplicates" />
+              </InArgument>
               <OutArgument x:TypeArguments="x:Boolean" x:Key="out_TemplateValidationSuccess" />
-              <OutArgument x:TypeArguments="s:Exception" x:Key="out_Exception">[validationException]</OutArgument>
+              <OutArgument x:TypeArguments="s:Exception" x:Key="out_Exception">
+                <mva:VisualBasicReference x:TypeArguments="s:Exception" ExpressionText="validationException" />
+              </OutArgument>
             </ui:InvokeCode.Arguments>
           </ui:InvokeCode>
-          <If Condition="[validationException IsNot Nothing]" sap:VirtualizedContainerService.HintSize="484,210" sap2010:WorkflowViewState.IdRef="If_2">
+          <If Condition="[validationException IsNot Nothing]" DisplayName="Check if Validation Exception is present" sap:VirtualizedContainerService.HintSize="484,250" sap2010:WorkflowViewState.IdRef="If_2">
             <If.Then>
               <Throw DisplayName="Template Exception" Exception="[validationException]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
             </If.Then>
@@ -126,7 +135,7 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
             </ActivityAction.Argument>
-            <If Condition="[exception.GetType.Name=&quot;FormatException&quot; OrElse exception.GetType.Name=&quot;RowNotInTableException&quot;]" sap:VirtualizedContainerService.HintSize="797,397" sap2010:WorkflowViewState.IdRef="If_1">
+            <If Condition="[exception.GetType.Name=&quot;FormatException&quot; OrElse exception.GetType.Name=&quot;RowNotInTableException&quot;]" sap:VirtualizedContainerService.HintSize="797,407" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
                 <Sequence sap:VirtualizedContainerService.HintSize="376,247" sap2010:WorkflowViewState.IdRef="Sequence_4">
                   <sap:WorkflowViewStateService.ViewState>
