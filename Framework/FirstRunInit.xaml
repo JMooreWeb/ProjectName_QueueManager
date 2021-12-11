@@ -140,7 +140,7 @@
               </ui:InvokeCode.Arguments>
             </ui:InvokeCode>
           </Sequence>
-          <If Condition="[File.Exists(configFilePath)]" DisplayName="Check if file exists =&gt; configFilePath" sap:VirtualizedContainerService.HintSize="526,52" sap2010:WorkflowViewState.IdRef="If_1">
+          <If Condition="[File.Exists(configFilePath)]" DisplayName="Check if file exists =&gt; configFilePath" sap:VirtualizedContainerService.HintSize="755,534" sap2010:WorkflowViewState.IdRef="If_1">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -184,7 +184,9 @@
                 </ui:MultipleAssign>
                 <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_CopyConfigFile workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Shared\Shared_CopyConfigFile.xaml">
                   <ui:InvokeWorkflowFile.Arguments>
-                    <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                    <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFilePath">
+                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="configFilePath" />
+                    </InArgument>
                   </ui:InvokeWorkflowFile.Arguments>
                 </ui:InvokeWorkflowFile>
               </Sequence>
