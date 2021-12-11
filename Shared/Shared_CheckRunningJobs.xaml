@@ -1,20 +1,21 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Shared_CheckRunningJobs" this:Shared_CheckRunningJobs.in_RetryCount="3" this:Shared_CheckRunningJobs.in_RetryInterval="00:00:05" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.microsoft.com/workflow/2012/07/xaml/activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Shared_CheckRunningJobs" this:Shared_CheckRunningJobs.in_JobFilter="Release/ProcessKey eq '@ProcessName' and (State eq 'Running' or State eq 'Pending')" this:Shared_CheckRunningJobs.in_RetryCount="3" this:Shared_CheckRunningJobs.in_RetryInterval="00:00:05" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.microsoft.com/workflow/2012/07/xaml/activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="out_RunningJobCount" Type="InArgument(x:Int32)" />
     <x:Property Name="in_JobFilter" Type="InArgument(x:String)" />
     <x:Property Name="in_RetryCount" Type="InArgument(x:Int32)" />
     <x:Property Name="in_RetryInterval" Type="InArgument(x:TimeSpan)" />
+    <x:Property Name="in_ProcessName" Type="InArgument(x:String)" />
   </x:Members>
   <this:Shared_CheckRunningJobs.out_RunningJobCount>
     <InArgument x:TypeArguments="x:Int32" />
   </this:Shared_CheckRunningJobs.out_RunningJobCount>
-  <this:Shared_CheckRunningJobs.in_JobFilter>
+  <this:Shared_CheckRunningJobs.in_ProcessName>
     <InArgument x:TypeArguments="x:String" />
-  </this:Shared_CheckRunningJobs.in_JobFilter>
+  </this:Shared_CheckRunningJobs.in_ProcessName>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1002,1079</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1002,1105</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Shared_CheckRunningJobs_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="52">
@@ -78,7 +79,7 @@
       <AssemblyReference>Microsoft.Activities</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Shared_CheckRunningJobs" sap:VirtualizedContainerService.HintSize="518,1014" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Shared_CheckRunningJobs" sap:VirtualizedContainerService.HintSize="526,1040" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="processKey" />
       <Variable x:TypeArguments="x:Boolean" Name="requestSuccess" />
@@ -89,7 +90,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign DisplayName="Assign: out_RunningJobCount" sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign DisplayName="Assign: out_RunningJobCount" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Int32">[out_RunningJobCount]</OutArgument>
       </Assign.To>
@@ -97,7 +98,7 @@
         <InArgument x:TypeArguments="x:Int32">-1</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Assign: in_JobFilter" sap:VirtualizedContainerService.HintSize="476,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <Assign DisplayName="Assign: in_JobFilter" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[in_JobFilter]</OutArgument>
       </Assign.To>
@@ -105,14 +106,14 @@
         <InArgument x:TypeArguments="x:String">[in_JobFilter.Replace("@ProcessName", processKey)]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="476,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Checking any running job with Job Filter: &quot;+in_JobFilter]" />
-    <ui:RetryScope DisplayName="Retry Scope: Get Job Count" sap:VirtualizedContainerService.HintSize="476,589" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="[in_RetryCount]" RetryInterval="[in_RetryInterval]">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="484,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Checking any running job with Job Filter: &quot;+in_JobFilter]" />
+    <ui:RetryScope DisplayName="Retry Scope: Get Job Count" sap:VirtualizedContainerService.HintSize="484,292" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="[in_RetryCount]" RetryInterval="[in_RetryInterval]">
       <ui:RetryScope.ActivityBody>
         <ActivityAction>
-          <TryCatch DisplayName="Try Catch: Get Job Count" sap:VirtualizedContainerService.HintSize="434,349" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+          <TryCatch DisplayName="Try Catch: Get Job Count" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="TryCatch_1">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
@@ -198,5 +199,19 @@
         </ActivityFunc>
       </ui:RetryScope.Condition>
     </ui:RetryScope>
+    <If Condition="[out_RunningJobCount &gt; 0]" DisplayName="Check if out_RunningJobCount &gt; 0" sap:VirtualizedContainerService.HintSize="484,283" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[String.Format(&quot;Running {0} Jobs for the Process {1}&quot;, out_RunningJobCount, in_ProcessName)]" />
+      </If.Then>
+      <If.Else>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Sequence>
+      </If.Else>
+    </If>
   </Sequence>
 </Activity>
