@@ -89,7 +89,7 @@
     </sap:WorkflowViewStateService.ViewState>
     <TryCatch DisplayName="Try Catch: AddQueueItemsFromList" sap:VirtualizedContainerService.HintSize="576,2304" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Try>
-        <Sequence sap:VirtualizedContainerService.HintSize="538,2072" sap2010:WorkflowViewState.IdRef="Sequence_4">
+        <Sequence DisplayName="Try Block: AddQueueItemsFromList" sap:VirtualizedContainerService.HintSize="538,2072" sap2010:WorkflowViewState.IdRef="Sequence_4">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
