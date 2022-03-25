@@ -1,11 +1,12 @@
 {
-  "name": "ProjectName_QueueManager",
+  "name": "Custom_REFramework_QueueManger",
   "description": "Robotic Enterprise Framework Dispatcher aka Queue Manager",
   "main": "Main.xaml",
   "dependencies": {
     "Microsoft.Activities": "[1.0.1]",
     "Microsoft.Activities.Extensions": "[2.0.6.9]",
     "UiPath.Excel.Activities": "[2.10.4]",
+    "UiPath.Mail.Activities": "[1.12.3]",
     "UiPath.System.Activities": "[21.4.1]",
     "UiPath.UIAutomation.Activities": "[21.4.4]",
     "UiPath.WebAPI.Activities": "[1.7.0]"
@@ -28,7 +29,7 @@
     ],
     "executionType": "Workflow",
     "readyForPiP": false,
-    "startsInPiP": true,
+    "startsInPiP": false,
     "mustRestoreAllDependencies": false
   },
   "designOptions": {

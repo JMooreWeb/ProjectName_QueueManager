@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Test_Shared_GetQueueItems" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1055,1467" sap2010:WorkflowViewState.IdRef="Test_Shared_GetQueueItems_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Test_Shared_GetQueueItems" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="915,1467" sap2010:WorkflowViewState.IdRef="Test_Shared_GetQueueItems_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="33">
       <x:String>System.Activities</x:String>
@@ -64,9 +64,9 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>Newtonsoft.Json</AssemblyReference>
       <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="Test_Shared_GetQueueItems" sap:VirtualizedContainerService.HintSize="454,1402" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -124,7 +124,7 @@
         <InArgument x:TypeArguments="x:Int32" x:Key="in_QueueLookBackDays">
           <Literal x:TypeArguments="x:Int32" />
         </InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_QueueItemStates">
+        <InArgument x:TypeArguments="x:String" x:Key="in_QueueItemStatuses">
           <Literal x:TypeArguments="x:String">New,InProgress</Literal>
         </InArgument>
       </ui:InvokeWorkflowFile.Arguments>
