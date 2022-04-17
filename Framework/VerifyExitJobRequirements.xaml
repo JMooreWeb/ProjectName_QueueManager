@@ -1,62 +1,735 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="VerifyExitJobRequirements" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="VerifyExitJobRequirements_1"
- xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" 
- xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
- xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
- xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" 
- xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" 
- xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" 
- xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" 
- xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <TextExpression.NamespacesForImplementation>
-        <sco:Collection x:TypeArguments="x:String">
-            <x:String>System.Activities</x:String>
-            <x:String>System.Activities.Statements</x:String>
-            <x:String>System.Activities.Expressions</x:String>
-            <x:String>System.Activities.Validation</x:String>
-            <x:String>System.Activities.XamlIntegration</x:String>
-            <x:String>Microsoft.VisualBasic</x:String>
-            <x:String>Microsoft.VisualBasic.Activities</x:String>
-            <x:String>System</x:String>
-            <x:String>System.Collections</x:String>
-            <x:String>System.Collections.Generic</x:String>
-            <x:String>System.Data</x:String>
-            <x:String>System.Diagnostics</x:String>
-            <x:String>System.Drawing</x:String>
-            <x:String>System.IO</x:String>
-            <x:String>System.Linq</x:String>
-            <x:String>System.Net.Mail</x:String>
-            <x:String>System.Xml</x:String>
-            <x:String>System.Xml.Linq</x:String>
-            <x:String>UiPath.Core</x:String>
-            <x:String>UiPath.Core.Activities</x:String>
-            <x:String>System.Windows.Markup</x:String>
-        </sco:Collection>
-    </TextExpression.NamespacesForImplementation>
-    <TextExpression.ReferencesForImplementation>
-        <sco:Collection x:TypeArguments="AssemblyReference">
-            <AssemblyReference>System.Activities</AssemblyReference>
-            <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
-            <AssemblyReference>mscorlib</AssemblyReference>
-            <AssemblyReference>System.Data</AssemblyReference>
-            <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
-            <AssemblyReference>System</AssemblyReference>
-            <AssemblyReference>System.Drawing</AssemblyReference>
-            <AssemblyReference>System.Core</AssemblyReference>
-            <AssemblyReference>System.Xml</AssemblyReference>
-            <AssemblyReference>System.Xml.Linq</AssemblyReference>
-            <AssemblyReference>PresentationFramework</AssemblyReference>
-            <AssemblyReference>WindowsBase</AssemblyReference>
-            <AssemblyReference>PresentationCore</AssemblyReference>
-            <AssemblyReference>System.Xaml</AssemblyReference>
-            <AssemblyReference>UiPath.System.Activities</AssemblyReference>
-            <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
-        </sco:Collection>
-    </TextExpression.ReferencesForImplementation>
-    <Sequence DisplayName="VerifyExitJobRequirements" sap2010:WorkflowViewState.IdRef="Sequence_1">
-        <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+<Activity mc:Ignorable="sap sap2010" x:Class="VerifyExitJobRequirements" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="out_ExitProcess" Type="OutArgument(x:Boolean)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1212,1900.5</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>VerifyExitJobRequirements_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="27">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="27">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="VerifyExitJobRequirements" sap:VirtualizedContainerService.HintSize="1222,1835.5" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="s:String[]" Name="exitJobParameters" />
+      <Variable x:TypeArguments="x:String" Name="exitJobRequirement" />
+      <Variable x:TypeArguments="x:String" Name="exitJobAction" />
+      <Variable x:TypeArguments="x:String" Name="processName" />
+      <Variable x:TypeArguments="x:String" Name="jobFilter" />
+      <Variable x:TypeArguments="x:Int32" Default="0" Name="jobCountThreshold" />
+      <Variable x:TypeArguments="x:String" Name="exitReason" />
+      <Variable x:TypeArguments="x:Int32" Default="-1" Name="queueItemsFromPriorRunCount" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:CheckTrue DisplayName="Check True: ExitJobRequirement Config Value" ErrorMessage="ExitJobRequirement config value is missing!" Expression="[in_Config.ContainsKey(&quot;ExitJobRequirement&quot;)]" sap:VirtualizedContainerService.HintSize="1180,87" sap2010:WorkflowViewState.IdRef="CheckTrue_1" />
+    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each: ExitJobRequirement" sap:VirtualizedContainerService.HintSize="1180,1616.5" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[Split(in_Config(&quot;ExitJobRequirement&quot;).ToString, &quot;|&quot;)]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="item" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body: ExitJobRequirement" sap:VirtualizedContainerService.HintSize="1144,1481.5" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-    </Sequence>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <TryCatch DisplayName="Try Catch: ExitJobRequirement" sap:VirtualizedContainerService.HintSize="1102,1389.5" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+              <TryCatch.Try>
+                <Flowchart DisplayName="Flowchart: CheckExitJobRequirements" sap:VirtualizedContainerService.HintSize="1064,1134.5" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+                  <Flowchart.Variables>
+                    <Variable x:TypeArguments="x:Int32" Name="runningJobCount">
+                      <Variable.Default>
+                        <Literal x:TypeArguments="x:Int32" Value="-1" />
+                      </Variable.Default>
+                    </Variable>
+                    <Variable x:TypeArguments="x:Int32" Name="waitSeconds">
+                      <Variable.Default>
+                        <Literal x:TypeArguments="x:Int32" Value="-1" />
+                      </Variable.Default>
+                    </Variable>
+                  </Flowchart.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      <av:Point x:Key="ShapeLocation">570,2.5</av:Point>
+                      <av:Size x:Key="ShapeSize">60,75</av:Size>
+                      <av:PointCollection x:Key="ConnectorLocation">600,77.5 600,107.5</av:PointCollection>
+                      <x:Double x:Key="Width">1030</x:Double>
+                      <x:Double x:Key="Height">1098.5</x:Double>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Flowchart.StartNode>
+                    <x:Reference>__ReferenceID16</x:Reference>
+                  </Flowchart.StartNode>
+                  <FlowStep x:Name="__ReferenceID16">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <av:Point x:Key="ShapeLocation">500,107.5</av:Point>
+                        <av:Size x:Key="ShapeSize">200,68</av:Size>
+                        <av:PointCollection x:Key="ConnectorLocation">600,175.5 600,205.5</av:PointCollection>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Sequence DisplayName="Initialize Exit Job Variables" sap:VirtualizedContainerService.HintSize="200,68" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign DisplayName="Assign: exitJobParameters" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="s:String[]">[exitJobParameters]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="s:String[]">[Split(item, ":")]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign DisplayName="Assign: exitJobRequirement" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[exitJobRequirement]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[exitJobParameters(0).Trim.ToUpper]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign DisplayName="Assign: exitJobAction" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[exitJobAction]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String" xml:space="preserve">[If (exitJobParameters.Length &gt; 1,  exitJobParameters(1).Trim.ToUpper, String.Empty)]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </Sequence>
+                    <FlowStep.Next>
+                      <FlowDecision x:Name="__ReferenceID2" DisplayName="ExitJobRequirement &lt;&gt; STOP" sap:VirtualizedContainerService.HintSize="160,87" sap2010:WorkflowViewState.IdRef="FlowDecision_3">
+                        <FlowDecision.Condition>
+                          <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="exitJobRequirement &lt;&gt; &quot;STOP&quot;" />
+                        </FlowDecision.Condition>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <av:Point x:Key="ShapeLocation">520,205.5</av:Point>
+                            <av:Size x:Key="ShapeSize">160,87</av:Size>
+                            <av:PointCollection x:Key="TrueConnector">520,249 446.641666666667,249 446.641666666667,316.5</av:PointCollection>
+                            <av:PointCollection x:Key="FalseConnector">680,249 890,249 890,706</av:PointCollection>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <FlowDecision.True>
+                          <FlowDecision x:Name="__ReferenceID3" DisplayName="ExitJobCheck Required?" sap:VirtualizedContainerService.HintSize="132,87" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
+                            <FlowDecision.Condition>
+                              <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="Not exitJobRequirement.Equals(&quot;NOT_APPLICABLE&quot;) AndAlso exitJobRequirement.Length &gt; 0" />
+                            </FlowDecision.Condition>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <av:Point x:Key="ShapeLocation">380.641666666667,316.5</av:Point>
+                                <av:Size x:Key="ShapeSize">132,87</av:Size>
+                                <av:PointCollection x:Key="FalseConnector">512.641666666667,360 642.641666666667,360</av:PointCollection>
+                                <av:PointCollection x:Key="TrueConnector">380.641666666667,360 330,360 330,424</av:PointCollection>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <FlowDecision.True>
+                              <FlowStep x:Name="__ReferenceID5">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <av:Point x:Key="ShapeLocation">230,424</av:Point>
+                                    <av:Size x:Key="ShapeSize">200,52</av:Size>
+                                    <av:PointCollection x:Key="ConnectorLocation">430,450 500,450 500,496.5</av:PointCollection>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <Switch x:TypeArguments="x:String" DisplayName="Switch: exitJobRequirement" Expression="[exitJobRequirement]" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+                                  <Switch.Default>
+                                    <Throw DisplayName="Throw: ExitJobRequirement" Exception="[New ApplicationException(&quot;ExitJobCondition config value is invalid. Valid values are: CHAIN_PROCESS_RUNNING, SUCCEEDING_PROCESS_RUNNING, CURRENT_PROCESS_RUNNING, NOT_APPLICABLE&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                                  </Switch.Default>
+                                  <Sequence x:Key="CHAIN_PROCESS_RUNNING" DisplayName="Chain Process Running" sap:VirtualizedContainerService.HintSize="304,346" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <Assign DisplayName="Assign: processName (ChainProcessRunning)" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[processName]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">[in_Config("ProjectName").ToString]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <Assign DisplayName="Assign: jobFilter (ChainProcessRunning)" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[jobFilter]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">["startswith(Release/ProcessKey, '@ProcessName') and (State eq 'Running' or State eq 'Pending')"]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <Assign DisplayName="Assign: jobCountThreshold (ChainProcessRunning)" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:Int32">[jobCountThreshold]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:Int32">1</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </Sequence>
+                                  <Sequence x:Key="SUCCEEDING_PROCESS_RUNNING" DisplayName="Succeeding Process Running" sap:VirtualizedContainerService.HintSize="376,473" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <ui:CheckTrue DisplayName="Check True: Check NextJobProcessName Config Value" ErrorMessage="NextJobProcessName config value is missing!" Expression="[CBool(in_Config.ContainsKey(&quot;NextJobProcessName&quot;).ToString) AndAlso in_Config(&quot;NextJobProcessName&quot;).ToString.Length &gt; 0]" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="CheckTrue_2" />
+                                    <Assign DisplayName="Assign: processName (SucceedingProcessRunning)" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[processName]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">[in_Config("NextJobProcessName").ToString]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <Assign DisplayName="Assign: jobFilter (SucceedingProcessRunning)" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[jobFilter]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">["Release/ProcessKey, '@ProcessName' and (State eq 'Running' or State eq 'Pending')"]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <Assign DisplayName="Assign: jobCountThreshold (SucceedingProcessRunning)" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:Int32">[jobCountThreshold]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:Int32">0</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </Sequence>
+                                  <Sequence x:Key="CURRENT_PROCESS_RUNNING" DisplayName="Current Process Running" sap:VirtualizedContainerService.HintSize="304,346" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <Assign DisplayName="Assign: processName (CurrentProcessRunning)" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[processName]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">[Split(Process.GetCurrentProcess.MainWindowTitle, "_")(0)]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <Assign DisplayName="Assign: jobFilter (CurrentProcessRunning)" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[jobFilter]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">["Release/ProcessKey, '@ProcessName' and (State eq 'Running' or State eq 'Pending')"]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <Assign DisplayName="Assign: jobCountThreshold (CurrentProcessRunning)" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:Int32">[jobCountThreshold]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:Int32">1</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </Sequence>
+                                  <Sequence x:Key="QUEUE_HAS_NEW_ITEMS" DisplayName="Queue Has New Items" sap:VirtualizedContainerService.HintSize="526,973" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                                    <Sequence.Variables>
+                                      <Variable x:TypeArguments="scg:List(ui:QueueItem)" Name="queueItemsFromPriorRun" />
+                                    </Sequence.Variables>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_GetQueueItems workflow" sap:VirtualizedContainerService.HintSize="484,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Shared\Shared_GetQueueItems.xaml">
+                                      <ui:InvokeWorkflowFile.Arguments>
+                                        <InArgument x:TypeArguments="x:String" x:Key="in_QueueName">
+                                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;OrchestratorQueueName&quot;).ToString" />
+                                        </InArgument>
+                                        <OutArgument x:TypeArguments="scg:List(ui:QueueItem)" x:Key="out_QueueItems">
+                                          <mva:VisualBasicReference x:TypeArguments="scg:List(ui:QueueItem)" ExpressionText="queueItemsFromPriorRun" />
+                                        </OutArgument>
+                                        <InArgument x:TypeArguments="x:Int32" x:Key="in_QueueLookBackDays">
+                                          <Literal x:TypeArguments="x:Int32" />
+                                        </InArgument>
+                                        <InArgument x:TypeArguments="x:String" x:Key="in_QueueItemStatuses">
+                                          <Literal x:TypeArguments="x:String">New</Literal>
+                                        </InArgument>
+                                      </ui:InvokeWorkflowFile.Arguments>
+                                    </ui:InvokeWorkflowFile>
+                                    <Assign DisplayName="Assign: queueItemsFromPriorRunCount" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_20">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:Int32">[queueItemsFromPriorRunCount]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:Int32">[queueItemsFromPriorRun.Count]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <If Condition="[queueItemsFromPriorRun.Count &gt; 0 AndAlso exitJobAction.Contains(&quot;START&quot;)]" DisplayName="Check if queueItemsFromPriorRun &gt; 0" sap:VirtualizedContainerService.HintSize="484,628" sap2010:WorkflowViewState.IdRef="If_1">
+                                      <If.Then>
+                                        <Sequence DisplayName="Has Prior Queue Items" sap:VirtualizedContainerService.HintSize="376,438" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <Assign DisplayName="Assign: exitReason (QueueHasNewItems)" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_19">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="x:String">[exitReason]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="x:String">["Prior run queue items: " + queueItemsFromPriorRun.Count.ToString]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                          <ui:LogMessage DisplayName="Log Message: Prior New Q Items (QueueHasNewItems)" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Warn" Message="[&quot;Prior run NEW queue items found. Starting the Worker Bot and exiting Queue Manager without adding any new items.&quot;]" />
+                                          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_StartWorkerBots workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Shared\Shared_StartWorkerBots.xaml">
+                                            <ui:InvokeWorkflowFile.Arguments>
+                                              <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                                                <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
+                                              </InArgument>
+                                              <InArgument x:TypeArguments="x:Int32" x:Key="in_TotalQueueItemsToProcess">
+                                                <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="queueItemsFromPriorRun.Count" />
+                                              </InArgument>
+                                              <OutArgument x:TypeArguments="sc:Queue" x:Key="out_ApplicationUserIds" />
+                                              <OutArgument x:TypeArguments="x:Int32" x:Key="out_NumberBotsNeeded" />
+                                            </ui:InvokeWorkflowFile.Arguments>
+                                          </ui:InvokeWorkflowFile>
+                                        </Sequence>
+                                      </If.Then>
+                                    </If>
+                                  </Sequence>
+                                  <ui:Comment x:Key="NOT_APPLICABLE" DisplayName="Comment: Not Applicable" sap:VirtualizedContainerService.HintSize="334,55.5" sap2010:WorkflowViewState.IdRef="Comment_1" Text="// Not Applicable" />
+                                </Switch>
+                                <FlowStep.Next>
+                                  <FlowDecision x:Name="__ReferenceID6" DisplayName="ExitJobReq &lt;&gt; QUEUE_HAS_NEW_ITEMS" sap:VirtualizedContainerService.HintSize="160,87" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+                                    <FlowDecision.Condition>
+                                      <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="exitJobRequirement &lt;&gt; &quot;QUEUE_HAS_NEW_ITEMS&quot;" />
+                                    </FlowDecision.Condition>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        <av:Point x:Key="ShapeLocation">420,496.5</av:Point>
+                                        <av:Size x:Key="ShapeSize">160,87</av:Size>
+                                        <av:PointCollection x:Key="FalseConnector">580,540 650,540 650,606.5</av:PointCollection>
+                                        <av:PointCollection x:Key="TrueConnector">420,540 340,540 340,614.02</av:PointCollection>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <FlowDecision.True>
+                                      <FlowStep x:Name="__ReferenceID10">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <av:Point x:Key="ShapeLocation">240,614.02</av:Point>
+                                            <av:Size x:Key="ShapeSize">200,52</av:Size>
+                                            <av:PointCollection x:Key="ConnectorLocation">340,666.02 340,696.02</av:PointCollection>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <ui:LogMessage DisplayName="Log Message: JobFilter" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Trace" Message="[&quot;Job Filter: &quot; + jobFilter]">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </ui:LogMessage>
+                                        <FlowStep.Next>
+                                          <FlowStep x:Name="__ReferenceID0">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <av:Point x:Key="ShapeLocation">240,696.02</av:Point>
+                                                <av:Size x:Key="ShapeSize">200,68</av:Size>
+                                                <av:PointCollection x:Key="ConnectorLocation">340,764.02 340,794.02</av:PointCollection>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                            <Sequence DisplayName="Reset Variables" sap:VirtualizedContainerService.HintSize="200,68" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                                              <sap:WorkflowViewStateService.ViewState>
+                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                </scg:Dictionary>
+                                              </sap:WorkflowViewStateService.ViewState>
+                                              <Assign DisplayName="Assign: runningJobCount" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_23">
+                                                <Assign.To>
+                                                  <OutArgument x:TypeArguments="x:Int32">[runningJobCount]</OutArgument>
+                                                </Assign.To>
+                                                <Assign.Value>
+                                                  <InArgument x:TypeArguments="x:Int32">-1</InArgument>
+                                                </Assign.Value>
+                                              </Assign>
+                                              <Assign DisplayName="Assign: out_ExitProcess" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_24">
+                                                <Assign.To>
+                                                  <OutArgument x:TypeArguments="x:Boolean">[out_ExitProcess]</OutArgument>
+                                                </Assign.To>
+                                                <Assign.Value>
+                                                  <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                                                </Assign.Value>
+                                              </Assign>
+                                            </Sequence>
+                                            <FlowStep.Next>
+                                              <FlowStep x:Name="__ReferenceID11">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <av:Point x:Key="ShapeLocation">240,794.02</av:Point>
+                                                    <av:Size x:Key="ShapeSize">200,52</av:Size>
+                                                    <av:PointCollection x:Key="ConnectorLocation">340,846.02 340,876.02</av:PointCollection>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_CheckRunningJobs workflow" sap:VirtualizedContainerService.HintSize="200,52" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Shared\Shared_CheckRunningJobs.xaml">
+                                                  <ui:InvokeWorkflowFile.Arguments>
+                                                    <OutArgument x:TypeArguments="x:Int32" x:Key="out_RunningJobCount">
+                                                      <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="runningJobCount" />
+                                                    </OutArgument>
+                                                    <InArgument x:TypeArguments="x:String" x:Key="in_JobFilter">
+                                                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="jobFilter" />
+                                                    </InArgument>
+                                                    <InArgument x:TypeArguments="x:Int32" x:Key="in_RetryCount">
+                                                      <Literal x:TypeArguments="x:Int32" Value="3" />
+                                                    </InArgument>
+                                                    <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_RetryInterval">
+                                                      <Literal x:TypeArguments="x:TimeSpan" Value="00:00:05" />
+                                                    </InArgument>
+                                                    <InArgument x:TypeArguments="x:String" x:Key="in_ProcessName">
+                                                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="processName" />
+                                                    </InArgument>
+                                                  </ui:InvokeWorkflowFile.Arguments>
+                                                  <sap:WorkflowViewStateService.ViewState>
+                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                    </scg:Dictionary>
+                                                  </sap:WorkflowViewStateService.ViewState>
+                                                </ui:InvokeWorkflowFile>
+                                                <FlowStep.Next>
+                                                  <FlowDecision x:Name="__ReferenceID12" DisplayName="Running Jobs Exceeded?" sap:VirtualizedContainerService.HintSize="137.5,87" sap2010:WorkflowViewState.IdRef="FlowDecision_5">
+                                                    <FlowDecision.Condition>
+                                                      <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="runningJobCount &gt; jobCountThreshold" />
+                                                    </FlowDecision.Condition>
+                                                    <sap:WorkflowViewStateService.ViewState>
+                                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                        <av:Point x:Key="ShapeLocation">271.25,876.02</av:Point>
+                                                        <av:Size x:Key="ShapeSize">137.5,87</av:Size>
+                                                        <av:PointCollection x:Key="FalseConnector">408.75,919.52 508.75,919.52</av:PointCollection>
+                                                        <av:PointCollection x:Key="TrueConnector">271.25,919.52 240,919.52 240,996.5</av:PointCollection>
+                                                      </scg:Dictionary>
+                                                    </sap:WorkflowViewStateService.ViewState>
+                                                    <FlowDecision.True>
+                                                      <FlowDecision x:Name="__ReferenceID14" DisplayName="Wait?" sap:VirtualizedContainerService.HintSize="70,87" sap2010:WorkflowViewState.IdRef="FlowDecision_6">
+                                                        <FlowDecision.Condition>
+                                                          <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="exitJobAction.StartsWith(&quot;WAIT&quot;) AndAlso waitSeconds &lt; 0" />
+                                                        </FlowDecision.Condition>
+                                                        <sap:WorkflowViewStateService.ViewState>
+                                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                            <av:Point x:Key="ShapeLocation">205,996.5</av:Point>
+                                                            <av:Size x:Key="ShapeSize">70,87</av:Size>
+                                                            <av:PointCollection x:Key="FalseConnector">275,1040 759,1040</av:PointCollection>
+                                                            <av:PointCollection x:Key="TrueConnector">205,1040 120,1040 120,904</av:PointCollection>
+                                                          </scg:Dictionary>
+                                                        </sap:WorkflowViewStateService.ViewState>
+                                                        <FlowDecision.True>
+                                                          <FlowStep x:Name="__ReferenceID15">
+                                                            <sap:WorkflowViewStateService.ViewState>
+                                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                <av:Point x:Key="ShapeLocation">20,836</av:Point>
+                                                                <av:Size x:Key="ShapeSize">200,68</av:Size>
+                                                                <av:PointCollection x:Key="ConnectorLocation">120,836 120,730.02 240,730.02</av:PointCollection>
+                                                              </scg:Dictionary>
+                                                            </sap:WorkflowViewStateService.ViewState>
+                                                            <Sequence DisplayName="Wait and Recheck" sap:VirtualizedContainerService.HintSize="200,68" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                                                              <Sequence.Variables>
+                                                                <Variable x:TypeArguments="s:Random" Default="[New Random]" Name="randomNumber" />
+                                                              </Sequence.Variables>
+                                                              <sap:WorkflowViewStateService.ViewState>
+                                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                                </scg:Dictionary>
+                                                              </sap:WorkflowViewStateService.ViewState>
+                                                              <Assign DisplayName="Assign: waitSeconds (parse)" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_25">
+                                                                <Assign.To>
+                                                                  <OutArgument x:TypeArguments="x:Int32">[waitSeconds]</OutArgument>
+                                                                </Assign.To>
+                                                                <Assign.Value>
+                                                                  <InArgument x:TypeArguments="x:Int32">[If (Split(exitJobAction, "-").Length &gt; 1, CInt(Split(exitJobAction, "-")(1)), 0)]</InArgument>
+                                                                </Assign.Value>
+                                                              </Assign>
+                                                              <Assign DisplayName="Assign: waitSeconds" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_26">
+                                                                <Assign.To>
+                                                                  <OutArgument x:TypeArguments="x:Int32">[waitSeconds]</OutArgument>
+                                                                </Assign.To>
+                                                                <Assign.Value>
+                                                                  <InArgument x:TypeArguments="x:Int32">[waitSeconds + randomNumber.Next(5, 15)]</InArgument>
+                                                                </Assign.Value>
+                                                              </Assign>
+                                                              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[String.Format(&quot;Waiting param {0} found, waiting randomized seconds: {1}&quot;, exitJobAction, waitSeconds)]" />
+                                                              <Delay DisplayName="Delay: waitSeconds" Duration="[TimeSpan.FromSeconds(waitSeconds)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Delay_1" />
+                                                            </Sequence>
+                                                            <FlowStep.Next>
+                                                              <x:Reference>__ReferenceID0</x:Reference>
+                                                            </FlowStep.Next>
+                                                          </FlowStep>
+                                                        </FlowDecision.True>
+                                                        <FlowDecision.False>
+                                                          <FlowStep x:Name="__ReferenceID9">
+                                                            <sap:WorkflowViewStateService.ViewState>
+                                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                <av:Point x:Key="ShapeLocation">759,1010</av:Point>
+                                                                <av:Size x:Key="ShapeSize">262,60</av:Size>
+                                                                <av:PointCollection x:Key="ConnectorLocation">890,1010 890,774</av:PointCollection>
+                                                              </scg:Dictionary>
+                                                            </sap:WorkflowViewStateService.ViewState>
+                                                            <Assign DisplayName="Assign: exitReason" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_22">
+                                                              <Assign.To>
+                                                                <OutArgument x:TypeArguments="x:String">[exitReason]</OutArgument>
+                                                              </Assign.To>
+                                                              <Assign.Value>
+                                                                <InArgument x:TypeArguments="x:String">["Prior running Job count: " + runningJobCount.ToString]</InArgument>
+                                                              </Assign.Value>
+                                                              <sap:WorkflowViewStateService.ViewState>
+                                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                                </scg:Dictionary>
+                                                              </sap:WorkflowViewStateService.ViewState>
+                                                            </Assign>
+                                                            <FlowStep.Next>
+                                                              <FlowStep x:Name="__ReferenceID1">
+                                                                <sap:WorkflowViewStateService.ViewState>
+                                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                    <av:Point x:Key="ShapeLocation">790,706</av:Point>
+                                                                    <av:Size x:Key="ShapeSize">200,68</av:Size>
+                                                                    <av:PointCollection x:Key="ConnectorLocation">790,740 700,740</av:PointCollection>
+                                                                  </scg:Dictionary>
+                                                                </sap:WorkflowViewStateService.ViewState>
+                                                                <Sequence DisplayName="Exit Job Condition Met" sap:VirtualizedContainerService.HintSize="200,68" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                                                                  <sap:WorkflowViewStateService.ViewState>
+                                                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                                    </scg:Dictionary>
+                                                                  </sap:WorkflowViewStateService.ViewState>
+                                                                  <Assign DisplayName="Assign: out_ExitProcess" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_21">
+                                                                    <Assign.To>
+                                                                      <OutArgument x:TypeArguments="x:Boolean">[out_ExitProcess]</OutArgument>
+                                                                    </Assign.To>
+                                                                    <Assign.Value>
+                                                                      <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                                                                    </Assign.Value>
+                                                                  </Assign>
+                                                                  <ui:LogMessage DisplayName="Log Message: Exit Job Condition Met" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[String.Format(&quot;Exit Job Condition is met, exiting the job. ExitJobRequirement: {0}, {1}&quot;, exitJobRequirement, exitReason)]" />
+                                                                </Sequence>
+                                                                <FlowStep.Next>
+                                                                  <FlowStep x:Name="__ReferenceID8">
+                                                                    <sap:WorkflowViewStateService.ViewState>
+                                                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                        <av:Point x:Key="ShapeLocation">500,729</av:Point>
+                                                                        <av:Size x:Key="ShapeSize">200,22</av:Size>
+                                                                      </scg:Dictionary>
+                                                                    </sap:WorkflowViewStateService.ViewState>
+                                                                    <ui:Break DisplayName="Break: Exit For Each (exitJob Condition)" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Break_1">
+                                                                      <sap:WorkflowViewStateService.ViewState>
+                                                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                                        </scg:Dictionary>
+                                                                      </sap:WorkflowViewStateService.ViewState>
+                                                                    </ui:Break>
+                                                                  </FlowStep>
+                                                                </FlowStep.Next>
+                                                              </FlowStep>
+                                                            </FlowStep.Next>
+                                                          </FlowStep>
+                                                        </FlowDecision.False>
+                                                      </FlowDecision>
+                                                    </FlowDecision.True>
+                                                    <FlowDecision.False>
+                                                      <FlowStep x:Name="__ReferenceID13">
+                                                        <sap:WorkflowViewStateService.ViewState>
+                                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                            <av:Point x:Key="ShapeLocation">508.75,908.52</av:Point>
+                                                            <av:Size x:Key="ShapeSize">200,22</av:Size>
+                                                          </scg:Dictionary>
+                                                        </sap:WorkflowViewStateService.ViewState>
+                                                        <ui:Continue DisplayName="Continue: Next Iteration (runningJob exceeded)" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Continue_3">
+                                                          <sap:WorkflowViewStateService.ViewState>
+                                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                            </scg:Dictionary>
+                                                          </sap:WorkflowViewStateService.ViewState>
+                                                        </ui:Continue>
+                                                      </FlowStep>
+                                                    </FlowDecision.False>
+                                                  </FlowDecision>
+                                                </FlowStep.Next>
+                                              </FlowStep>
+                                            </FlowStep.Next>
+                                          </FlowStep>
+                                        </FlowStep.Next>
+                                      </FlowStep>
+                                    </FlowDecision.True>
+                                    <FlowDecision.False>
+                                      <FlowDecision x:Name="__ReferenceID7" DisplayName="QItemsPriorRunCount &lt;= 0" sap:VirtualizedContainerService.HintSize="151.5,87" sap2010:WorkflowViewState.IdRef="FlowDecision_4">
+                                        <FlowDecision.Condition>
+                                          <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="queueItemsFromPriorRunCount &lt;= 0" />
+                                        </FlowDecision.Condition>
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            <av:Point x:Key="ShapeLocation">574.25,606.5</av:Point>
+                                            <av:Size x:Key="ShapeSize">151.5,87</av:Size>
+                                            <av:PointCollection x:Key="FalseConnector">725.75,650 890,650 890,706</av:PointCollection>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <FlowDecision.False>
+                                          <x:Reference>__ReferenceID1</x:Reference>
+                                        </FlowDecision.False>
+                                      </FlowDecision>
+                                    </FlowDecision.False>
+                                  </FlowDecision>
+                                </FlowStep.Next>
+                              </FlowStep>
+                            </FlowDecision.True>
+                            <FlowDecision.False>
+                              <FlowStep x:Name="__ReferenceID4">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <av:Point x:Key="ShapeLocation">642.641666666667,349</av:Point>
+                                    <av:Size x:Key="ShapeSize">200,22</av:Size>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:Continue DisplayName="Continue: Next Iteration (exitJobCheck)" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Continue_1">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </ui:Continue>
+                              </FlowStep>
+                            </FlowDecision.False>
+                          </FlowDecision>
+                        </FlowDecision.True>
+                        <FlowDecision.False>
+                          <x:Reference>__ReferenceID1</x:Reference>
+                        </FlowDecision.False>
+                      </FlowDecision>
+                    </FlowStep.Next>
+                  </FlowStep>
+                  <x:Reference>__ReferenceID2</x:Reference>
+                  <x:Reference>__ReferenceID3</x:Reference>
+                  <x:Reference>__ReferenceID4</x:Reference>
+                  <x:Reference>__ReferenceID5</x:Reference>
+                  <x:Reference>__ReferenceID6</x:Reference>
+                  <x:Reference>__ReferenceID7</x:Reference>
+                  <x:Reference>__ReferenceID1</x:Reference>
+                  <x:Reference>__ReferenceID8</x:Reference>
+                  <x:Reference>__ReferenceID9</x:Reference>
+                  <x:Reference>__ReferenceID10</x:Reference>
+                  <x:Reference>__ReferenceID0</x:Reference>
+                  <x:Reference>__ReferenceID11</x:Reference>
+                  <x:Reference>__ReferenceID12</x:Reference>
+                  <x:Reference>__ReferenceID13</x:Reference>
+                  <x:Reference>__ReferenceID14</x:Reference>
+                  <x:Reference>__ReferenceID15</x:Reference>
+                </Flowchart>
+              </TryCatch.Try>
+              <TryCatch.Catches>
+                <Catch x:TypeArguments="ui:CheckpointException" sap:VirtualizedContainerService.HintSize="1068,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ActivityAction x:TypeArguments="ui:CheckpointException">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="ui:CheckpointException" Name="exception" />
+                    </ActivityAction.Argument>
+                    <Rethrow sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
+                  </ActivityAction>
+                </Catch>
+                <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="1068,22" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ActivityAction x:TypeArguments="s:Exception">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                    </ActivityAction.Argument>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[&quot;Error in Verify Exit Job Requirement: &quot; + exception.Message]" />
+                  </ActivityAction>
+                </Catch>
+              </TryCatch.Catches>
+            </TryCatch>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+  </Sequence>
 </Activity>

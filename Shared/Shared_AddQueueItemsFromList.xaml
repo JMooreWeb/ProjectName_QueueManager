@@ -1,13 +1,13 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="Shared_AddQueueItemsFromList" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:String))" />
-    <x:Property Name="in_QueueItemsList" Type="InArgument(scg:List(scg:Dictionary(x:String, x:String)))" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_QueueItemsList" Type="InArgument(scg:List(scg:IDictionary(x:String, x:String)))" />
     <x:Property Name="out_NumberOfBotsStarted" Type="OutArgument(x:Int32)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1002,2461</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>867,2461</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Shared_AddQueueItemsFromList_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="28">
@@ -42,7 +42,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="26">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="52">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -67,8 +67,9 @@
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
       <AssemblyReference>System.ServiceModel</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="Shared_AddQueueItemsFromList" sap:VirtualizedContainerService.HintSize="618,2396" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -107,7 +108,7 @@
                       <OutArgument x:TypeArguments="x:String">[queueName]</OutArgument>
                     </ui:AssignOperation.To>
                     <ui:AssignOperation.Value>
-                      <InArgument x:TypeArguments="x:String">[in_Config("OrchestratorQueueName")]</InArgument>
+                      <InArgument x:TypeArguments="x:String">[in_Config("OrchestratorQueueName").ToString]</InArgument>
                     </ui:AssignOperation.Value>
                   </ui:AssignOperation>
                   <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
@@ -115,7 +116,7 @@
                       <OutArgument x:TypeArguments="x:String">[queueItemReferenceKey]</OutArgument>
                     </ui:AssignOperation.To>
                     <ui:AssignOperation.Value>
-                      <InArgument x:TypeArguments="x:String">[in_Config("QueueItemReferenceKey")]</InArgument>
+                      <InArgument x:TypeArguments="x:String">[in_Config("QueueItemReferenceKey").ToString]</InArgument>
                     </ui:AssignOperation.Value>
                   </ui:AssignOperation>
                   <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
@@ -151,10 +152,18 @@
             </sap:WorkflowViewStateService.ViewState>
             <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_GetQueueItems workflow" sap:VirtualizedContainerService.HintSize="454,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Shared\Shared_GetQueueItems.xaml">
               <ui:InvokeWorkflowFile.Arguments>
-                <InArgument x:TypeArguments="x:String" x:Key="in_QueueName">[in_Config("OrchestratorQueueName")]</InArgument>
-                <OutArgument x:TypeArguments="scg:List(ui:QueueItem)" x:Key="out_QueueItems">[priorRunNewQueueItems]</OutArgument>
-                <InArgument x:TypeArguments="x:Int32" x:Key="in_QueueLookBackDays">0</InArgument>
-                <InArgument x:TypeArguments="x:String" x:Key="in_QueueItemStates">New,InProgress</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_QueueName">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;OrchestratorQueueName&quot;).ToString" />
+                </InArgument>
+                <OutArgument x:TypeArguments="scg:List(ui:QueueItem)" x:Key="out_QueueItems">
+                  <mva:VisualBasicReference x:TypeArguments="scg:List(ui:QueueItem)" ExpressionText="priorRunNewQueueItems" />
+                </OutArgument>
+                <InArgument x:TypeArguments="x:Int32" x:Key="in_QueueLookBackDays">
+                  <Literal x:TypeArguments="x:Int32" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_QueueItemStatuses">
+                  <Literal x:TypeArguments="x:String">New</Literal>
+                </InArgument>
               </ui:InvokeWorkflowFile.Arguments>
             </ui:InvokeWorkflowFile>
             <Assign DisplayName="Assign: priorRunNewQueueItemsCount" sap:VirtualizedContainerService.HintSize="454,60" sap2010:WorkflowViewState.IdRef="Assign_5">
@@ -214,7 +223,6 @@
             </If>
             <Sequence DisplayName="Start Worker Bots &amp; Add Transactions to Queue" sap:VirtualizedContainerService.HintSize="454,993" sap2010:WorkflowViewState.IdRef="Sequence_7">
               <Sequence.Variables>
-                <Variable x:TypeArguments="x:Object" Name="queueName" />
                 <Variable x:TypeArguments="sc:Queue" Name="applicationUserIds" />
                 <Variable x:TypeArguments="x:String" Name="queueReferenceKey" />
               </Sequence.Variables>
@@ -226,18 +234,10 @@
               <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="412,93" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[String.Format(&quot;Adding {0} queue items to the Orchestrator Queue: {1}&quot;, in_QueueItemsList.Count, queueName)]" />
               <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_StartWorkerBots workflow" sap:VirtualizedContainerService.HintSize="412,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Shared\Shared_StartWorkerBots.xaml">
                 <ui:InvokeWorkflowFile.Arguments>
-                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_Config">
-                    <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:String)" ExpressionText="in_Config" />
-                  </InArgument>
-                  <InArgument x:TypeArguments="x:Int32" x:Key="in_TotalQueueItemsToProcess">
-                    <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="in_QueueItemsList.Count+priorRunNewQueueItems.Count" />
-                  </InArgument>
-                  <OutArgument x:TypeArguments="sc:Queue" x:Key="out_ApplicationUserIds">
-                    <mva:VisualBasicReference x:TypeArguments="sc:Queue" ExpressionText="applicationUserIds" />
-                  </OutArgument>
-                  <OutArgument x:TypeArguments="x:Int32" x:Key="out_NumberBotsNeeded">
-                    <mva:VisualBasicReference x:TypeArguments="x:Int32" ExpressionText="out_NumberOfBotsStarted" />
-                  </OutArgument>
+                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                  <InArgument x:TypeArguments="x:Int32" x:Key="in_TotalQueueItemsToProcess">[in_QueueItemsList.Count+priorRunNewQueueItems.Count]</InArgument>
+                  <OutArgument x:TypeArguments="sc:Queue" x:Key="out_ApplicationUserIds">[applicationUserIds]</OutArgument>
+                  <OutArgument x:TypeArguments="x:Int32" x:Key="out_NumberBotsNeeded">[out_NumberOfBotsStarted]</OutArgument>
                 </ui:InvokeWorkflowFile.Arguments>
               </ui:InvokeWorkflowFile>
               <ui:ForEach x:TypeArguments="scg:IDictionary(x:String, x:String)" CurrentIndex="{x:Null}" DisplayName="For Each: in_QueueItemsList" sap:VirtualizedContainerService.HintSize="412,615" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[in_QueueItemsList]">
@@ -249,8 +249,6 @@
                     <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="376,480" sap2010:WorkflowViewState.IdRef="Sequence_8">
                       <Sequence.Variables>
                         <Variable x:TypeArguments="x:String" Name="jsonDicString" />
-                        <Variable x:TypeArguments="x:String" Name="queueItemReferenceKey" />
-                        <Variable x:TypeArguments="x:String" Name="queueName" />
                       </Sequence.Variables>
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -279,14 +277,10 @@
                           </scg:List>
                         </ui:MultipleAssign.AssignOperations>
                       </ui:MultipleAssign>
-                      <ui:AddLogFields sap2010:Annotation.AnnotationText="TransactionJsonData&#xD;&#xA;TransactionReference" DisplayName="Add Log Fields" sap:VirtualizedContainerService.HintSize="334,66" sap2010:WorkflowViewState.IdRef="AddLogFields_1">
+                      <ui:AddLogFields sap2010:Annotation.AnnotationText="TransactionJsonData&#xA;TransactionReference" DisplayName="Add Log Fields" sap:VirtualizedContainerService.HintSize="334,66" sap2010:WorkflowViewState.IdRef="AddLogFields_1">
                         <ui:AddLogFields.Fields>
-                          <InArgument x:TypeArguments="x:String" x:Key="TransactionJsonData">
-                            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="Regex.Replace(Convert.ToString(jsonDicString), &quot;[\{\}\r\r']&quot;, String.Empty)" />
-                          </InArgument>
-                          <InArgument x:TypeArguments="x:String" x:Key="TransactionReference">
-                            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="queueReferenceKey" />
-                          </InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="TransactionJsonData">[Regex.Replace(Convert.ToString(jsonDicString), "[\{\}\r\r']", String.Empty)]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="TransactionReference">[queueReferenceKey]</InArgument>
                         </ui:AddLogFields.Fields>
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -296,27 +290,13 @@
                       </ui:AddLogFields>
                       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_AddQueueItem workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Shared\Shared_AddQueueItem.xaml">
                         <ui:InvokeWorkflowFile.Arguments>
-                          <InArgument x:TypeArguments="x:String" x:Key="in_QueueName">
-                            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="queueName" />
-                          </InArgument>
-                          <InArgument x:TypeArguments="x:String" x:Key="in_Reference">
-                            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="queueReferenceKey" />
-                          </InArgument>
-                          <InArgument x:TypeArguments="x:String" x:Key="in_JsonData">
-                            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="jsonDicString" />
-                          </InArgument>
-                          <InArgument x:TypeArguments="s:DateTime" x:Key="in_Postpone">
-                            <mva:VisualBasicValue x:TypeArguments="s:DateTime" ExpressionText="Nothing" />
-                          </InArgument>
-                          <InArgument x:TypeArguments="s:DateTime" x:Key="in_Deadline">
-                            <mva:VisualBasicValue x:TypeArguments="s:DateTime" ExpressionText="Nothing" />
-                          </InArgument>
-                          <InArgument x:TypeArguments="x:Int32" x:Key="in_RetryCount">
-                            <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="retryCount" />
-                          </InArgument>
-                          <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_RetryInterval">
-                            <mva:VisualBasicValue x:TypeArguments="x:TimeSpan" ExpressionText="retryInterval" />
-                          </InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_QueueName">[queueName]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_Reference">[queueReferenceKey]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_JsonData">[jsonDicString]</InArgument>
+                          <InArgument x:TypeArguments="s:DateTime" x:Key="in_Postpone">[Nothing]</InArgument>
+                          <InArgument x:TypeArguments="s:DateTime" x:Key="in_Deadline">[Nothing]</InArgument>
+                          <InArgument x:TypeArguments="x:Int32" x:Key="in_RetryCount">[retryCount]</InArgument>
+                          <InArgument x:TypeArguments="x:TimeSpan" x:Key="in_RetryInterval">[retryInterval]</InArgument>
                         </ui:InvokeWorkflowFile.Arguments>
                       </ui:InvokeWorkflowFile>
                     </Sequence>

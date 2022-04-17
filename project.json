@@ -1,5 +1,5 @@
 {
-  "name": "Custom_REFramework_QueueManger",
+  "name": "ProjectNameQM",
   "description": "Robotic Enterprise Framework Dispatcher aka Queue Manager",
   "main": "Main.xaml",
   "dependencies": {

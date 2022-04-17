@@ -1,6 +1,6 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="Shared_StartWorkerBots" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="in_TotalQueueItemsToProcess" Type="InArgument(x:Int32)" />
     <x:Property Name="out_ApplicationUserIds" Type="OutArgument(sc:Queue)" />
     <x:Property Name="out_NumberBotsNeeded" Type="OutArgument(x:Int32)" />
@@ -8,7 +8,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1002,1424</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>867,2561</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Shared_StartWorkerBots_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="30">
@@ -71,33 +71,21 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Shared_StartWorkerBots" sap:VirtualizedContainerService.HintSize="606,1359" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Shared_StartWorkerBots" sap:VirtualizedContainerService.HintSize="730,2496" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataRow[]" Name="processWorkForceInfo" />
       <Variable x:TypeArguments="x:String" Name="botsWorkForceInfoPath" />
-      <Variable x:TypeArguments="x:Int32" Name="numBotsToStart">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:Int32" />
-        </Variable.Default>
-      </Variable>
-      <Variable x:TypeArguments="x:Int32" Name="numMaxBotsToStart">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:Int32" />
-        </Variable.Default>
-      </Variable>
+      <Variable x:TypeArguments="x:Int32" Default="0" Name="numBotsToStart" />
+      <Variable x:TypeArguments="x:Int32" Default="0" Name="numMaxBotsToStart" />
       <Variable x:TypeArguments="x:String" Name="startJobProcessName" />
       <Variable x:TypeArguments="x:Boolean" Name="startAtLeastOneJob" />
       <Variable x:TypeArguments="x:Boolean" Name="faultOnError" />
       <Variable x:TypeArguments="x:Double" Default="0" Name="avgSecsPerTransaction" />
-      <Variable x:TypeArguments="x:TimeSpan" Name="processSLARunTime">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:TimeSpan" />
-        </Variable.Default>
-      </Variable>
+      <Variable x:TypeArguments="x:TimeSpan" Default="00:00:00" Name="processSLARunTime" />
       <Variable x:TypeArguments="sd:DataTable" Name="botsWorkForceInfo" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
@@ -105,9 +93,9 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <TryCatch DisplayName="Try Catch: StartWorkerBots" sap:VirtualizedContainerService.HintSize="564,1267" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+    <TryCatch DisplayName="Try Catch: StartWorkerBots" sap:VirtualizedContainerService.HintSize="688,2404" sap2010:WorkflowViewState.IdRef="TryCatch_3">
       <TryCatch.Try>
-        <Sequence DisplayName="Try Block: StartWorkerBots" sap:VirtualizedContainerService.HintSize="526,1035" sap2010:WorkflowViewState.IdRef="Sequence_15">
+        <Sequence DisplayName="Try Block: StartWorkerBots" sap:VirtualizedContainerService.HintSize="650,2172" sap2010:WorkflowViewState.IdRef="Sequence_15">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -117,7 +105,7 @@
           <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="608,1189" sap2010:WorkflowViewState.IdRef="TryCatch_1">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
@@ -137,7 +125,7 @@
                           <OutArgument x:TypeArguments="x:String">[startJobProcessName]</OutArgument>
                         </ui:AssignOperation.To>
                         <ui:AssignOperation.Value>
-                          <InArgument x:TypeArguments="x:String">[in_Config("NextJobProcessName")]</InArgument>
+                          <InArgument x:TypeArguments="x:String">[in_Config("NextJobProcessName").ToString]</InArgument>
                         </ui:AssignOperation.Value>
                       </ui:AssignOperation>
                       <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
@@ -229,7 +217,7 @@
               </Catch>
             </TryCatch.Catches>
           </TryCatch>
-          <If Condition="[processWorkForceInfo Is Nothing OrElse processWorkForceInfo.Count = 0 OrElse processWorkForceInfo.Count &gt; 1]" DisplayName="Check if Process is in HDB Tracker Sheet" sap:VirtualizedContainerService.HintSize="484,52" sap2010:WorkflowViewState.IdRef="If_6">
+          <If Condition="[processWorkForceInfo Is Nothing OrElse processWorkForceInfo.Count = 0 OrElse processWorkForceInfo.Count &gt; 1]" DisplayName="Check if Process is in HDB Tracker Sheet" sap:VirtualizedContainerService.HintSize="608,52" sap2010:WorkflowViewState.IdRef="If_6">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -325,7 +313,7 @@
               </Sequence>
             </If.Else>
           </If>
-          <Assign sap2010:Annotation.AnnotationText="Adjust number of bots to start" DisplayName="Assign: numBotsToStart" sap:VirtualizedContainerService.HintSize="484,91" sap2010:WorkflowViewState.IdRef="Assign_7">
+          <Assign sap2010:Annotation.AnnotationText="Adjust number of bots to start" DisplayName="Assign: numBotsToStart" sap:VirtualizedContainerService.HintSize="608,91" sap2010:WorkflowViewState.IdRef="Assign_7">
             <Assign.To>
               <OutArgument x:TypeArguments="x:Int32">[numBotsToStart]</OutArgument>
             </Assign.To>
@@ -338,7 +326,7 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
           </Assign>
-          <If Condition="[numBotsToStart &lt;= 0 AndAlso startAtLeastOneJob]" DisplayName="Check if numBotsToStart &lt;= 0 AndAlso startAtLeastOneJob" sap:VirtualizedContainerService.HintSize="484,52" sap2010:WorkflowViewState.IdRef="If_7">
+          <If Condition="[numBotsToStart &lt;= 0 AndAlso startAtLeastOneJob]" DisplayName="Check if numBotsToStart &lt;= 0 AndAlso startAtLeastOneJob" sap:VirtualizedContainerService.HintSize="608,52" sap2010:WorkflowViewState.IdRef="If_7">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -386,8 +374,8 @@
               </Sequence>
             </If.Else>
           </If>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="484,93" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[String.Format(&quot;Calculations for Bot force needed: Process SLA for the Job: {0}, AverageSecondsPerTransaction: {1}, TransactionsToProcess: {2}, MaxWorkerBotLimit: {3}, WorkerBotUsersAvailable: {4}, CurrentWorkerBots: {5}&quot;, processSLARunTime, avgSecsPerTransaction, in_TotalQueueItemsToProcess, numMaxBotsToStart, out_ApplicationUserIds.Count, numBotsToStart)]" />
-          <Assign DisplayName="Assign: out_NumberBotsNeeded" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="608,93" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[String.Format(&quot;Calculations for Bot force needed: Process SLA for the Job: {0}, AverageSecondsPerTransaction: {1}, TransactionsToProcess: {2}, MaxWorkerBotLimit: {3}, WorkerBotUsersAvailable: {4}, CurrentWorkerBots: {5}&quot;, processSLARunTime, avgSecsPerTransaction, in_TotalQueueItemsToProcess, numMaxBotsToStart, out_ApplicationUserIds.Count, numBotsToStart)]" />
+          <Assign DisplayName="Assign: out_NumberBotsNeeded" sap:VirtualizedContainerService.HintSize="608,60" sap2010:WorkflowViewState.IdRef="Assign_10">
             <Assign.To>
               <OutArgument x:TypeArguments="x:Int32">[out_NumberBotsNeeded]</OutArgument>
             </Assign.To>

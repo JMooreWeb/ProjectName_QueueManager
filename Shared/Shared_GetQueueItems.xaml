@@ -8,7 +8,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>915,2834</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>887,2964</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Shared_GetQueueItems_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="56">
@@ -78,12 +78,11 @@
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
       <AssemblyReference>Microsoft.Activities</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.Web</AssemblyReference>
       <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Shared_GetQueueItems" sap:VirtualizedContainerService.HintSize="897,2769" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Shared_GetQueueItems" sap:VirtualizedContainerService.HintSize="897,2899" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Default="0" Name="skipItemsCount" />
       <Variable x:TypeArguments="x:Boolean" Default="False" Name="isRequestSuccess" />
@@ -102,16 +101,16 @@
         <InArgument x:TypeArguments="scg:List(ui:QueueItem)">[New List(Of QueueItem)]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:InterruptibleDoWhile Condition="[pagedQueueItems.Count &gt;= 100]" DisplayName="Do While: Get Paginated Queue Items" sap:VirtualizedContainerService.HintSize="855,2444" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
+    <ui:InterruptibleDoWhile Condition="[pagedQueueItems.Count &gt;= 100]" DisplayName="Do While: Get Paginated Queue Items" sap:VirtualizedContainerService.HintSize="855,2574" sap2010:WorkflowViewState.IdRef="InterruptibleDoWhile_1">
       <ui:InterruptibleDoWhile.Body>
-        <Sequence DisplayName="Body: Get Queue Items" sap:VirtualizedContainerService.HintSize="819,2277" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence DisplayName="Body: Get Queue Items" sap:VirtualizedContainerService.HintSize="819,2407" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <TryCatch DisplayName="Try Catch: Get Queue Items" sap:VirtualizedContainerService.HintSize="777,1910" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+          <TryCatch DisplayName="Try Catch: Get Queue Items" sap:VirtualizedContainerService.HintSize="777,2040" sap2010:WorkflowViewState.IdRef="TryCatch_1">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -119,17 +118,17 @@
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <TryCatch.Try>
-              <Sequence DisplayName="Try Block: Get Queue Items" sap:VirtualizedContainerService.HintSize="739,1678" sap2010:WorkflowViewState.IdRef="Sequence_3">
+              <Sequence DisplayName="Try Block: Get Queue Items" sap:VirtualizedContainerService.HintSize="739,1808" sap2010:WorkflowViewState.IdRef="Sequence_3">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     <x:Boolean x:Key="IsPinned">False</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <ui:RetryScope DisplayName="Retry Scope: Get Queue Items" sap:VirtualizedContainerService.HintSize="697,1586" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="3" RetryInterval="00:00:05">
+                <ui:RetryScope DisplayName="Retry Scope: Get Queue Items" sap:VirtualizedContainerService.HintSize="697,1716" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="3" RetryInterval="00:00:05">
                   <ui:RetryScope.ActivityBody>
                     <ActivityAction>
-                      <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="655,1346" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                      <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="655,1476" sap2010:WorkflowViewState.IdRef="TryCatch_2">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -137,7 +136,7 @@
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
                         <TryCatch.Try>
-                          <Sequence sap:VirtualizedContainerService.HintSize="617,1114" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                          <Sequence sap:VirtualizedContainerService.HintSize="617,1244" sap2010:WorkflowViewState.IdRef="Sequence_4">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -169,39 +168,34 @@
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
                             </ui:CommentOut>
-                            <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each: in_QueueItemStatuses" sap:VirtualizedContainerService.HintSize="575,610" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_QueueItemStatuses.Split(&quot;,&quot;c)]">
+                            <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each: in_QueueItemStatuses" sap:VirtualizedContainerService.HintSize="575,740" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_QueueItemStatuses.Split(&quot;,&quot;c)]">
                               <ui:ForEach.Body>
                                 <ActivityAction x:TypeArguments="x:String">
                                   <ActivityAction.Argument>
                                     <DelegateInArgument x:TypeArguments="x:String" Name="item" />
                                   </ActivityAction.Argument>
-                                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="539,476" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="539,606" sap2010:WorkflowViewState.IdRef="Sequence_6">
                                     <sap:WorkflowViewStateService.ViewState>
                                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                       </scg:Dictionary>
                                     </sap:WorkflowViewStateService.ViewState>
-                                    <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[item.ToUpper.Trim]" sap:VirtualizedContainerService.HintSize="497,384" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+                                    <Switch x:TypeArguments="x:String" DisplayName="Switch" Expression="[item.ToUpper.Trim]" sap:VirtualizedContainerService.HintSize="497,514" sap2010:WorkflowViewState.IdRef="Switch`1_2">
                                       <Switch.Default>
-                                        <Throw Exception="[New ApplicationException(&quot;Queue item state not found: &quot; + item)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                                        <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="436,192" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+                                          <ui:CommentOut.Body>
+                                            <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                                              <sap:WorkflowViewStateService.ViewState>
+                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                </scg:Dictionary>
+                                              </sap:WorkflowViewStateService.ViewState>
+                                              <Throw Exception="[New ApplicationException(&quot;Queue item state not found: &quot; + item)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                                            </Sequence>
+                                          </ui:CommentOut.Body>
+                                        </ui:CommentOut>
                                       </Switch.Default>
-                                      <ui:HttpClient Body="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseHeaders="{x:Null}" Result="{x:Null}" SecureClientCertificatePassword="{x:Null}" SecurePassword="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" x:Key="New" AcceptFormat="ANY" BodyFormat="application/xml" ClientCertificate="[Nothing]" ClientCertificatePassword="[Nothing]" DisplayName="HTTP Request" EndPoint="[Nothing]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="GET" TimeoutMS="6000">
-                                        <ui:HttpClient.Attachments>
-                                          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
-                                        </ui:HttpClient.Attachments>
-                                        <ui:HttpClient.Cookies>
-                                          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
-                                        </ui:HttpClient.Cookies>
-                                        <ui:HttpClient.Headers>
-                                          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
-                                        </ui:HttpClient.Headers>
-                                        <ui:HttpClient.Parameters>
-                                          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
-                                        </ui:HttpClient.Parameters>
-                                        <ui:HttpClient.UrlSegments>
-                                          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
-                                        </ui:HttpClient.UrlSegments>
-                                      </ui:HttpClient>
+                                      <ui:GetQueueItems Duration="{x:Null}" From="{x:Null}" Priority="{x:Null}" Reference="{x:Null}" TimeoutMS="{x:Null}" To="{x:Null}" x:Key="NEW" DisplayName="GetQueueItems (New)" FilterStrategy="StartsWith" sap:VirtualizedContainerService.HintSize="284,80" sap2010:WorkflowViewState.IdRef="GetQueueItems_2" QueueItemStates="New" QueueName="[in_QueueName]" Result="[pagedQueueItems]" Skip="[skipItemsCount]" Top="100" />
                                       <x:Null x:Key="InProgress" />
                                       <x:Null x:Key="Failed" />
                                       <x:Null x:Key="Successful" />

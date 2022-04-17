@@ -1,13 +1,13 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="FirstRunInit" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="out_Config" Type="OutArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property Name="out_Config" Type="OutArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="out_ExScreenshotsFolderPath" Type="OutArgument(x:String)" />
     <x:Property Name="io_EnableFaultOnError" Type="InOutArgument(x:Boolean)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1002,1910</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>954,917</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>FirstRunInit_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="26">
@@ -70,21 +70,22 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="FirstRunInit" sap:VirtualizedContainerService.HintSize="648,1845" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="FirstRunInit" sap:VirtualizedContainerService.HintSize="480,852" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="configFilePath" />
       <Variable x:TypeArguments="x:Boolean" Default="False" Name="enableAutoSetup" />
+      <Variable x:TypeArguments="x:String" Name="rpaSharePath" />
+      <Variable x:TypeArguments="x:String" Name="projectName" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <TryCatch DisplayName="Try Catch: FirstRunInit" sap:VirtualizedContainerService.HintSize="606,1753" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch DisplayName="Try Catch: FirstRunInit" sap:VirtualizedContainerService.HintSize="438,760" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Try>
-        <Sequence sap2010:Annotation.AnnotationText="Config Setup" DisplayName="Try Block: RunFirstInit" sap:VirtualizedContainerService.HintSize="568,1521" sap2010:WorkflowViewState.IdRef="Sequence_3">
+        <Sequence sap2010:Annotation.AnnotationText="Config Setup" DisplayName="Try Block: RunFirstInit" sap:VirtualizedContainerService.HintSize="376,528" sap2010:WorkflowViewState.IdRef="Sequence_3">
           <Sequence.Variables>
-            <Variable x:TypeArguments="x:String" Name="rpaSharePath" />
             <Variable x:TypeArguments="x:String" Name="projectName" />
           </Sequence.Variables>
           <sap:WorkflowViewStateService.ViewState>
@@ -93,14 +94,15 @@
               <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <Sequence DisplayName="Get Config Paths" sap:VirtualizedContainerService.HintSize="526,348" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <Sequence DisplayName="Get Config Paths" sap:VirtualizedContainerService.HintSize="334,68" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="rpaSharePath" />
               <Variable x:TypeArguments="x:String" Name="projectName" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <ui:RetryScope DisplayName="Retry Scope: RPASharePath" sap:VirtualizedContainerService.HintSize="334,52" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="3" RetryInterval="00:00:05">
@@ -123,154 +125,128 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:RetryScope>
-            <ui:InvokeCode ContinueOnError="{x:Null}" Code="Try&#xA;&#x9;'RPA Process Name as it shows on Process section of Orchestrator&#xA;&#x9;Dim processName As String = Split(Process.GetCurrentProcess.MainWindowTitle, &quot;_&quot;)(0)&#xA;&#x9;Console.WriteLine(&quot;processName: &quot;+processName)&#xA;&#x9;&#xA;&#x9;'Remove any known suffixes of the SubProcess to get the project name&#xA;&#x9;Dim projectName As String = processName&#xA;&#x9;projectName = If (processName.EndsWith(&quot;QueueManager&quot;), processName.Replace(&quot;QueueManager&quot;, String.Empty), processName)&#xA;&#x9;projectName = If (processName.EndsWith(&quot;WorkerBot&quot;), processName.Replace(&quot;WorkerBot&quot;, String.Empty), processName)&#xA;&#x9;projectName = If (processName.EndsWith(&quot;Finalize&quot;), processName.Replace(&quot;Finalize&quot;, String.Empty), processName)&#xA;&#x9;projectName = If (processName.EndsWith(&quot;QM&quot;), processName.Replace(&quot;QM&quot;, String.Empty), processName)&#xA;&#x9;Console.WriteLine(&quot;projectName: &quot;+projectName)&#xA;&#x9;out_ProjectName = projectName&#xA;&#x9;&#xA;&#x9;Dim configFolderPath As String = Path.Combine(in_RPASharePath, projectName, &quot;Config&quot;)&#xA;&#x9;out_ConfigFilePath = Path.Combine(configFolderPath, processName + &quot;_Config&quot;)&#xA;&#x9;out_ExScreenshotsFolderPath = Path.Combine(in_RPASharePath, &quot;Exceptions&quot;, projectName)&#xA;&#x9;&#xA;&#x9;If Not Directory.Exists(out_ExScreenshotsFolderPath) Then&#xA;&#x9;&#x9;Directory.CreateDirectory(out_ExScreenshotsFolderPath)&#xA;&#x9;End If&#xA;&#x9;&#xA;&#x9;If Not Directory.Exists(configFolderPath) Then&#xA;&#x9;&#x9;Directory.CreateDirectory(configFolderPath)&#xA;&#x9;End If&#xA;&#x9;&#xA;&#x9;Console.WriteLine(&quot;Code Activity Completed =&gt; configFolderPath: &quot;+configFolderPath)&#xA;&#x9;&#xA;Catch ex As Exception&#xA;&#x9;Console.WriteLine(&quot;Error In Code Activity While getting config file path: &quot;+ex.Message)&#xA;End Try" DisplayName="Invoke code: ConfigFilePath" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+            <ui:InvokeCode ContinueOnError="{x:Null}" Code="Try&#xD;&#xA;&#x9;'RPA Process Name as it shows on Process section of Orchestrator&#xD;&#xA;&#x9;Dim processName As String = Split(Process.GetCurrentProcess.MainWindowTitle, &quot;_&quot;)(0)&#xD;&#xA;&#x9;Console.WriteLine(&quot;processName: &quot;+processName)&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;'Remove any known suffixes of the SubProcess to get the project name&#xD;&#xA;&#x9;Dim projectName As String = processName&#xD;&#xA;&#x9;projectName = If (processName.EndsWith(&quot;QueueManager&quot;), processName.Replace(&quot;QueueManager&quot;, String.Empty), processName)&#xD;&#xA;&#x9;projectName = If (processName.EndsWith(&quot;WorkerBot&quot;), processName.Replace(&quot;WorkerBot&quot;, String.Empty), processName)&#xD;&#xA;&#x9;projectName = If (processName.EndsWith(&quot;Finalize&quot;), processName.Replace(&quot;Finalize&quot;, String.Empty), processName)&#xD;&#xA;&#x9;projectName = If (processName.EndsWith(&quot;QM&quot;), processName.Replace(&quot;QM&quot;, String.Empty), processName)&#xD;&#xA;&#x9;Console.WriteLine(&quot;projectName: &quot;+projectName)&#xD;&#xA;&#x9;out_ProjectName = projectName&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;Dim configFolderPath As String = Path.Combine(in_RPASharePath, projectName, &quot;Config&quot;)&#xD;&#xA;&#x9;out_ConfigFilePath = Path.Combine(configFolderPath, processName + &quot;_Config.xlsx&quot;)&#xD;&#xA;&#x9;out_ExScreenshotsFolderPath = Path.Combine(in_RPASharePath, &quot;Exceptions&quot;, projectName)&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;If Not Directory.Exists(out_ExScreenshotsFolderPath) Then&#xD;&#xA;&#x9;&#x9;Directory.CreateDirectory(out_ExScreenshotsFolderPath)&#xD;&#xA;&#x9;End If&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;If Not Directory.Exists(configFolderPath) Then&#xD;&#xA;&#x9;&#x9;Directory.CreateDirectory(configFolderPath)&#xD;&#xA;&#x9;End If&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;Console.WriteLine(&quot;Code Activity Completed =&gt; configFolderPath: &quot;+configFolderPath)&#xD;&#xA;&#x9;&#xD;&#xA;Catch ex As Exception&#xD;&#xA;&#x9;Console.WriteLine(&quot;Error In Code Activity While getting config file path: &quot;+ex.Message)&#xD;&#xA;End Try" DisplayName="Invoke code: ConfigFilePath" sap:VirtualizedContainerService.HintSize="334,164" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
               <ui:InvokeCode.Arguments>
-                <InArgument x:TypeArguments="x:String" x:Key="in_RPASharePath">
-                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="rpaSharePath" />
-                </InArgument>
-                <OutArgument x:TypeArguments="x:String" x:Key="out_ConfigFilePath">
-                  <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="configFilePath" />
-                </OutArgument>
-                <OutArgument x:TypeArguments="x:String" x:Key="out_ExScreenshotsFolderPath">
-                  <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="out_ExScreenshotsFolderPath" />
-                </OutArgument>
-                <OutArgument x:TypeArguments="x:String" x:Key="out_ProjectName">
-                  <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="projectName" />
-                </OutArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_RPASharePath">[rpaSharePath]</InArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_ConfigFilePath">[configFilePath]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_ExScreenshotsFolderPath">[out_ExScreenshotsFolderPath]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_ProjectName">[projectName]</OutArgument>
               </ui:InvokeCode.Arguments>
             </ui:InvokeCode>
+            <If Condition="[File.Exists(configFilePath)]" DisplayName="Check if file exists =&gt; configFilePath" sap:VirtualizedContainerService.HintSize="334,52" sap2010:WorkflowViewState.IdRef="If_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <If.Then>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[&quot;configFilePath: &quot;+configFilePath]" />
+              </If.Then>
+              <If.Else>
+                <Sequence DisplayName="No ConfigFile Found" sap:VirtualizedContainerService.HintSize="376,374" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="x:Boolean" Default="False" Name="enableAutoSetup" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="334,129" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+                    <ui:MultipleAssign.AssignOperations>
+                      <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:Boolean">[enableAutoSetup]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:Boolean">[io_EnableFaultOnError]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                      </scg:List>
+                    </ui:MultipleAssign.AssignOperations>
+                  </ui:MultipleAssign>
+                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_CopyConfigFile workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Shared\Shared_CopyConfigFile.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFilePath">[configFilePath]</InArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                </Sequence>
+              </If.Else>
+            </If>
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Trace" Message="[&quot;Exception Screenshots Folder: &quot;+out_ExScreenshotsFolderPath]" />
           </Sequence>
-          <If Condition="[File.Exists(configFilePath)]" DisplayName="Check if file exists =&gt; configFilePath" sap:VirtualizedContainerService.HintSize="755,534" sap2010:WorkflowViewState.IdRef="If_1">
-            <sap:WorkflowViewStateService.ViewState>
-              <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                <x:Boolean x:Key="IsPinned">False</x:Boolean>
-              </scg:Dictionary>
-            </sap:WorkflowViewStateService.ViewState>
-            <If.Then>
-              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[&quot;configFilePath: &quot;+configFilePath]" />
-            </If.Then>
-            <If.Else>
-              <Sequence DisplayName="No ConfigFile Found" sap:VirtualizedContainerService.HintSize="376,374" sap2010:WorkflowViewState.IdRef="Sequence_6">
-                <Sequence.Variables>
-                  <Variable x:TypeArguments="x:Boolean" Default="False" Name="enableAutoSetup" />
-                </Sequence.Variables>
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-                <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="334,129" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
-                  <ui:MultipleAssign.AssignOperations>
-                    <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
-                      <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
-                        <ui:AssignOperation.To>
-                          <OutArgument x:TypeArguments="x:Boolean">[enableAutoSetup]</OutArgument>
-                        </ui:AssignOperation.To>
-                        <ui:AssignOperation.Value>
-                          <InArgument x:TypeArguments="x:Boolean">True</InArgument>
-                        </ui:AssignOperation.Value>
-                      </ui:AssignOperation>
-                      <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
-                        <ui:AssignOperation.To>
-                          <OutArgument x:TypeArguments="x:Boolean">[io_EnableFaultOnError]</OutArgument>
-                        </ui:AssignOperation.To>
-                        <ui:AssignOperation.Value>
-                          <InArgument x:TypeArguments="x:Boolean">False</InArgument>
-                        </ui:AssignOperation.Value>
-                      </ui:AssignOperation>
-                    </scg:List>
-                  </ui:MultipleAssign.AssignOperations>
-                </ui:MultipleAssign>
-                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Shared_CopyConfigFile workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Shared\Shared_CopyConfigFile.xaml">
-                  <ui:InvokeWorkflowFile.Arguments>
-                    <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFilePath">
-                      <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="configFilePath" />
-                    </InArgument>
-                  </ui:InvokeWorkflowFile.Arguments>
-                </ui:InvokeWorkflowFile>
-              </Sequence>
-            </If.Else>
-          </If>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="526,93" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Trace" Message="[&quot;Exception Screenshots Folder: &quot;+out_ExScreenshotsFolderPath]" />
-          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke InitAllSettings workflow" sap:VirtualizedContainerService.HintSize="526,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Framework\InitAllSettings.xaml">
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke InitAllSettings workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Framework\InitAllSettings.xaml">
             <ui:InvokeWorkflowFile.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFile">
                 <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="configFilePath" />
               </InArgument>
               <InArgument x:TypeArguments="s:String[]" x:Key="in_ConfigSheets">
-                <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="{}{&quot;Settings&quot;,&quot;Constants&quot;,&quot;Credentials&quot;}" />
+                <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="{}{&quot;Settings&quot;,&quot;Credentials&quot;,&quot;Constants&quot;}" />
               </InArgument>
-              <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="out_Config">
-                <mva:VisualBasicReference x:TypeArguments="scg:Dictionary(x:String, x:String)" ExpressionText="out_Config" />
+              <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Config">
+                <mva:VisualBasicReference x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="out_Config" />
               </OutArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_ExScreenshotsFolderPath">
+              <InArgument x:TypeArguments="x:String" x:Key="in_ScreenshotsFolderPath">
                 <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="out_ExScreenshotsFolderPath" />
               </InArgument>
               <InArgument x:TypeArguments="x:String" x:Key="in_RPASharePath">
                 <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="rpaSharePath" />
               </InArgument>
-              <InArgument x:TypeArguments="x:String" x:Key="in_ProjectName">
-                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="projectName" />
-              </InArgument>
               <InArgument x:TypeArguments="x:Boolean" x:Key="in_EnableFaultOnError">
                 <mva:VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="io_EnableFaultOnError" />
               </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_ProjectName">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="projectName" />
+              </InArgument>
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
-          <Sequence DisplayName="Save Job Arguments Config" sap:VirtualizedContainerService.HintSize="526,632" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <Sequence sap2010:Annotation.AnnotationText="Save job arguments with values to Config, using the argument's name as keyname." DisplayName="Save Job Arguments Config" sap:VirtualizedContainerService.HintSize="334,144" sap2010:WorkflowViewState.IdRef="Sequence_5">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
             <If Condition="[Not out_Config.ContainsKey(&quot;EnableAutoSetup&quot;)]" DisplayName="Check if Config contains key EnableAutoSetup" sap:VirtualizedContainerService.HintSize="484,250" sap2010:WorkflowViewState.IdRef="If_2">
               <If.Then>
                 <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
                   <Assign.To>
-                    <OutArgument x:TypeArguments="x:String">[out_Config("EnableAutoSetup")]</OutArgument>
+                    <OutArgument x:TypeArguments="x:Object">[out_Config("EnableAutoSetup")]</OutArgument>
                   </Assign.To>
                   <Assign.Value>
-                    <InArgument x:TypeArguments="x:String">[enableAutoSetup.ToString]</InArgument>
+                    <InArgument x:TypeArguments="x:Object">[enableAutoSetup.ToString]</InArgument>
                   </Assign.Value>
                 </Assign>
               </If.Then>
-              <If.Else>
-                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_8">
-                  <sap:WorkflowViewStateService.ViewState>
-                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                    </scg:Dictionary>
-                  </sap:WorkflowViewStateService.ViewState>
-                </Sequence>
-              </If.Else>
             </If>
             <If Condition="[Not out_Config.ContainsKey(&quot;EnableFaultOnError&quot;)]" DisplayName="Check if Config contains key EnableFaultOnError" sap:VirtualizedContainerService.HintSize="484,250" sap2010:WorkflowViewState.IdRef="If_3">
               <If.Then>
                 <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
                   <Assign.To>
-                    <OutArgument x:TypeArguments="x:String">[out_Config("EnableFaultOnError")]</OutArgument>
+                    <OutArgument x:TypeArguments="x:Object">[out_Config("EnableFaultOnError")]</OutArgument>
                   </Assign.To>
                   <Assign.Value>
-                    <InArgument x:TypeArguments="x:String">[io_EnableFaultOnError.ToString]</InArgument>
+                    <InArgument x:TypeArguments="x:Object">[io_EnableFaultOnError.ToString]</InArgument>
                   </Assign.Value>
                 </Assign>
               </If.Then>
-              <If.Else>
-                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_9">
-                  <sap:WorkflowViewStateService.ViewState>
-                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                    </scg:Dictionary>
-                  </sap:WorkflowViewStateService.ViewState>
-                </Sequence>
-              </If.Else>
             </If>
           </Sequence>
         </Sequence>
       </TryCatch.Try>
       <TryCatch.Catches>
-        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="572,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">False</x:Boolean>
